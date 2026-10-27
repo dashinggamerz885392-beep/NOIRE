@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Search Results | NOIRÉ</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    >
+
+    <!-- Existing Website CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .search-page {
+            max-width: 1400px;
+            margin: auto;
+            padding: 55px 5%;
+            min-height: 65vh;
+        }
+
+        .search-page h1 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .search-page-subtitle {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 30px;
+            
+        }
+
+        
+.search-results-form {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    max-width: 650px;
+    height: 48px;
+    border: 1px solid #d8d6d0;
+    border-radius: 8px;
+    margin-bottom: 35px;
+    overflow: hidden;
+}
+
+
+        .search-results-form input {
+            flex: 1;
+            min-width: 0;
+            border: none;
+            outline: none;
+            padding: 0 15px;
+            background: transparent;
+            font-size: 14px;
+        }
+
+        .search-results-form button {
+            width: 52px;
+            border: none;
+            background: #111;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #search-status {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 600px) {
+            .search-page {
+                padding: 35px 5%;
+            }
+        }
+
+        
+/* SEARCH RESULTS — FIXED PRODUCT GRID */
+#search-results .products {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+#search-results .product-card {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+}
+
+#search-results .product-card img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+@media (max-width: 900px) {
+    #search-results .products {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+
+
+/* Mic button inside the search bar */
+#results-search-mic {
+    width: 48px;
+    height: 100%;
+    flex-shrink: 0;
+    border: none;
+    border-left: 1px solid #d8d6d0;
+    background: transparent;
+    color: #111;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#results-search-mic.listening {
+    color: #ff4d4d;
+}
+
+#results-search-mic:hover {
+    background: transparent;
+}
+
+/* Keep both buttons aligned inside the search bar */
+.search-results-form {
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+}
+
+
+/* Remove background from search icon button only */
+#results-search-form button[type="submit"],
+#results-search-form button[type="submit"]:hover {
+    background: transparent !important;
+    color: #111 !important;
+    box-shadow: none !important;
+}
+
+
+
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="logo">NOIRÉ</a>
+
+        <a href="index.html" aria-label="Back to home"
+           style="color:#111;text-decoration:none;font-size:14px;">
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Shop
+        </a>
+    </header>
+
+    <main class="search-page">
+
+        <h1>Search Results</h1>
+
+        <p class="search-page-subtitle">
+            Find pieces that match your style.
+        </p>
+
+        <form class="search-results-form" id="results-search-form">
+            <input
+                type="text"
+                id="results-search-input"
+                placeholder="Search products..."
+                aria-label="Search products"
+            >
+
+           
+             <button type="submit" aria-label="Search">
+                 <i class="fa-solid fa-magnifying-glass"></i>
+             </button>
+
+
+        </form>
+
+        <p id="search-status">
+            Enter a product name to start searching.
+        </p>
+
+        <section id="search-results" aria-live="polite"></section>
+
+    </main>
+
+    <script>
+        const searchInput = document.getElementById("results-search-input");
+        const searchForm = document.getElementById("results-search-form");
+
+        const params = new URLSearchParams(window.location.search);
+        const query = params.get("q") || "";
+
+        searchInput.value = query;
+
+        searchForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const searchTerm = searchInput.value.trim();
+
+            if (searchTerm) {
+                window.location.href =
+                    "search.html?q=" + encodeURIComponent(searchTerm);
+            }
+        });
+
+
+        
+const micButton = document.getElementById("results-search-mic");
+
+const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (micButton) {
+    micButton.addEventListener("click", function () {
+        if (!SpeechRecognition) {
+            alert("Voice search is not supported. Please try Google Chrome.");
+            return;
+        }
+
+        const recognition = new SpeechRecognition();
+        recognition.lang = "en-IN";
+        recognition.continuous = false;
+        recognition.interimResults = false;
+
+        recognition.onstart = function () {
+            micButton.classList.add("listening");
+            micButton.title = "Listening...";
+        };
+
+        recognition.onresult = function (event) {
+            const spokenText = event.results[0][0].transcript.trim();
+
+            if (spokenText) {
+                searchInput.value = spokenText;
+                searchForm.requestSubmit();
+            }
+        };
+
+        recognition.onerror = function (event) {
+            if (event.error === "not-allowed") {
+                alert("Please allow microphone access.");
+            } else if (
+                event.error !== "no-speech" &&
+                event.error !== "aborted"
+            ) {
+                alert("Voice search failed. Please try again.");
+            }
+        };
+
+        recognition.onend = function () {
+            micButton.classList.remove("listening");
+            micButton.title = "Search by voice";
+        };
+
+        try {
+            recognition.start();
+        } catch (error) {
+            console.log("Voice search could not start.", error);
+        }
+    });
+}
+
+    </script>
+
+   <script src="app.js" defer></script>
+
+</body>
+</html>

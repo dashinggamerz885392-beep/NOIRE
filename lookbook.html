@@ -1,0 +1,1134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fashion Lookbook | NOIRÉ</title>
+
+    <meta name="description"
+        content="Explore the NOIRÉ fashion lookbook. Discover modern silhouettes, minimalist styling and timeless essentials.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+    <style>
+        :root {
+            --bg: #f7f6f2;
+            --text: #171715;
+            --muted: #77766f;
+            --line: #deddd8;
+            --white: #ffffff;
+            --serif: "Playfair Display", serif;
+            --sans: "Inter", sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--sans);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* NAVBAR */
+
+        .lookbook-nav {
+            min-height: 78px;
+            padding: 0 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .logo {
+            font-size: 29px;
+            font-weight: 700;
+            letter-spacing: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            transition: opacity 0.25s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.55;
+        }
+
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 12px;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 590px;
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            align-items: center;
+            gap: 45px;
+            padding: 70px 8%;
+        }
+
+        .eyebrow {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            margin: 24px 0;
+            font-family: var(--serif);
+            font-weight: 400;
+            font-size: clamp(48px, 6vw, 83px);
+            line-height: 1.03;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 span {
+            display: block;
+            font-style: italic;
+        }
+
+        .hero-description {
+            max-width: 360px;
+            font-size: 13px;
+            line-height: 2;
+            color: var(--muted);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .btn {
+            min-height: 48px;
+            padding: 0 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 11px;
+            letter-spacing: 0.7px;
+            transition: 0.25s ease;
+        }
+
+        .btn-dark {
+            background: var(--text);
+            color: white;
+            border: 1px solid var(--text);
+        }
+
+        .btn-dark:hover {
+            background: transparent;
+            color: var(--text);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--line);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text);
+        }
+
+        .hero-visual {
+            height: 455px;
+            position: relative;
+            overflow: hidden;
+            background: #e7e2d9;
+        }
+
+        .hero-visual img {
+            transition: transform 0.8s ease;
+        }
+
+        .hero-visual:hover img {
+            transform: scale(1.035);
+        }
+
+        .image-caption {
+            position: absolute;
+            left: 20px;
+            bottom: 20px;
+            padding: 11px 14px;
+            background: rgba(247, 246, 242, 0.92);
+            font-size: 9px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* COLLECTION INTRO */
+
+        .intro {
+            padding: 65px 20px;
+            text-align: center;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .intro h2 {
+            margin-top: 17px;
+            font-family: var(--serif);
+            font-weight: 400;
+            font-size: clamp(31px, 4vw, 47px);
+        }
+
+        .intro p:last-child {
+            max-width: 470px;
+            margin: 17px auto 0;
+            font-size: 12px;
+            line-height: 1.9;
+            color: var(--muted);
+        }
+
+        /* EDITORIAL SECTIONS */
+
+        .editorial {
+            padding: 90px 7%;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .section-heading h2 {
+            margin-top: 12px;
+            font-family: var(--serif);
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 400;
+        }
+
+        .section-heading > p {
+            max-width: 280px;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .look-card {
+            min-width: 0;
+        }
+
+        .look-image {
+            height: 490px;
+            overflow: hidden;
+            background: #e7e2d9;
+        }
+
+        .look-image img {
+            transition: transform 0.7s ease;
+        }
+
+        .look-card:hover .look-image img {
+            transform: scale(1.035);
+        }
+
+        .look-card:nth-child(2) {
+            margin-top: 75px;
+        }
+
+        .look-card:nth-child(2) .look-image {
+            height: 390px;
+        }
+
+        .look-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            gap: 15px;
+            padding-top: 18px;
+        }
+
+        .look-meta h3 {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .look-meta p {
+            margin-top: 7px;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .look-number {
+            font-family: var(--serif);
+            font-size: 20px;
+        }
+
+        .look-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--text);
+            font-size: 10px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        /* FULL-WIDTH CAMPAIGN */
+
+        .campaign {
+            min-height: 400px;
+            padding: 65px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: #e8e3db;
+        }
+
+        .campaign h2 {
+            margin: 20px 0;
+            font-family: var(--serif);
+            font-size: clamp(42px, 6vw, 75px);
+            font-weight: 400;
+            line-height: 1.08;
+        }
+
+        .campaign p:not(.eyebrow) {
+            max-width: 440px;
+            margin: 0 auto;
+            color: #66645e;
+            font-size: 12px;
+            line-height: 1.9;
+        }
+
+        .campaign .btn {
+            margin-top: 26px;
+        }
+
+        /* SHOP THE LOOK */
+
+        .shop-section {
+            padding: 90px 7%;
+        }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .shop-card {
+            min-width: 0;
+        }
+
+        .shop-image {
+            height: 330px;
+            overflow: hidden;
+            background: #e7e2d9;
+        }
+
+        .shop-image img {
+            transition: transform 0.6s ease;
+        }
+
+        .shop-card:hover .shop-image img {
+            transform: scale(1.035);
+        }
+
+        .shop-info {
+            padding-top: 15px;
+        }
+
+        .shop-info h3 {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .shop-info p {
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .shop-info .look-action {
+            margin-top: 13px;
+        }
+
+        /* FOOTER */
+
+        .footer {
+            padding: 45px 7% 25px;
+            background: #171715;
+            color: white;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            gap: 25px;
+            padding-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 27px;
+            font-weight: 700;
+            letter-spacing: 5px;
+        }
+
+        .footer-description {
+            max-width: 280px;
+            margin-top: 15px;
+            color: #b6b5ae;
+            font-size: 11px;
+            line-height: 1.9;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            font-size: 10px;
+            color: #d0cfc8;
+        }
+
+        .footer-bottom {
+            padding-top: 22px;
+            border-top: 1px solid #41413c;
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            color: #b6b5ae;
+            font-size: 10px;
+        }
+
+        /* MOBILE NAVIGATION */
+
+        .menu-toggle {
+            display: none;
+            border: 0;
+            background: transparent;
+            color: var(--text);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+            .lookbook-nav {
+                padding: 0 4%;
+            }
+
+            .nav-links {
+                gap: 16px;
+            }
+
+            .hero {
+                padding: 55px 5%;
+                gap: 25px;
+            }
+
+            .hero-visual {
+                height: 390px;
+            }
+
+            .editorial,
+            .shop-section {
+                padding: 70px 5%;
+            }
+
+            .look-image {
+                height: 400px;
+            }
+
+            .look-card:nth-child(2) .look-image {
+                height: 330px;
+            }
+
+            .shop-image {
+                height: 270px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .lookbook-nav {
+                min-height: 70px;
+                position: relative;
+                z-index: 5;
+            }
+
+            .logo {
+                font-size: 25px;
+            }
+
+            .menu-toggle {
+                display: block;
+                margin-left: auto;
+            }
+
+            .back-link {
+                font-size: 11px;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 69px;
+                left: 0;
+                right: 0;
+                padding: 20px 6%;
+                background: var(--bg);
+                border-bottom: 1px solid var(--line);
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 15px 0;
+                border-bottom: 1px solid var(--line);
+            }
+
+            .nav-links a:last-child {
+                border-bottom: 0;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 48px 6%;
+                gap: 32px;
+            }
+
+            .hero h1 {
+                font-size: clamp(49px, 13vw, 68px);
+            }
+
+            .hero-visual {
+                height: 390px;
+            }
+
+            .intro {
+                padding: 50px 22px;
+            }
+
+            .editorial,
+            .shop-section {
+                padding: 60px 6%;
+            }
+
+            .section-heading {
+                align-items: start;
+                flex-direction: column;
+            }
+
+            .editorial-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .look-image,
+            .look-card:nth-child(2) .look-image {
+                height: 420px;
+            }
+
+            .look-card:nth-child(2) {
+                margin-top: 0;
+            }
+
+            .campaign {
+                min-height: 340px;
+                padding: 50px 7%;
+            }
+
+            .shop-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 22px 12px;
+            }
+
+            .shop-image {
+                height: 250px;
+            }
+
+            .footer-top {
+                flex-direction: column;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                line-height: 1.7;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .back-link span {
+                display: none;
+            }
+
+            .hero-visual {
+                height: 320px;
+            }
+
+            .look-image,
+            .look-card:nth-child(2) .look-image {
+                height: 350px;
+            }
+
+            .shop-image {
+                height: 205px;
+            }
+
+            .btn {
+                padding: 0 17px;
+            }
+        }
+
+        /* ACCESSIBILITY */
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid #8b795f;
+            outline-offset: 4px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+            }
+        }
+
+        
+.look-image,
+.shop-image {
+    display: block;
+    cursor: pointer;
+}
+
+.look-image img,
+.shop-image img {
+    transition: transform 0.6s ease;
+}
+
+
+        
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="lookbook-nav">
+
+        <a href="index.html" class="logo" aria-label="NOIRÉ Home">
+            NOIRÉ
+        </a>
+
+        <button
+            class="menu-toggle"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="lookbook-navigation">
+
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <nav class="nav-links" id="lookbook-navigation">
+            <a href="#mens-edit">Men's Edit</a>
+            <a href="#womens-edit">Women's Edit</a>
+            <a href="#shop-the-look">Shop the Look</a>
+        </nav>
+
+        <a href="index.html#featured" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to Shop</span>
+        </a>
+
+    </header>
+
+
+    <main>
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="eyebrow">
+                    NOIRÉ — THE FASHION JOURNAL
+                </p>
+
+                <h1>
+                    BEYOND
+                    <span>THE ORDINARY.</span>
+                </h1>
+
+                <p class="hero-description">
+                    A study in modern silhouettes, effortless styling
+                    and timeless essentials. Discover a different
+                    perspective on everyday fashion.
+                </p>
+
+                <div class="hero-actions">
+
+                    <a href="#mens-edit" class="btn btn-dark">
+                        Explore the Edit
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                    <a href="#shop-the-look" class="btn btn-outline">
+                        Shop the Looks
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="hero-visual">
+
+                <img
+                    src="images/viru.jpg"
+                    alt="NOIRÉ fashion editorial campaign"
+                    fetchpriority="high">
+
+                <div class="image-caption">
+                    The Art of Everyday
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- INTRO -->
+
+        <section class="intro">
+
+            <p class="eyebrow">
+                A NEW PERSPECTIVE
+            </p>
+
+            <h2>Style is in the details.</h2>
+
+            <p>
+                Thoughtful essentials. Clean silhouettes.
+                A wardrobe built around your individuality.
+                This is the NOIRÉ approach to modern dressing.
+            </p>
+
+        </section>
+
+
+        <!-- MEN'S EDIT -->
+
+        <section class="editorial" id="mens-edit">
+
+            <div class="section-heading">
+
+                <div>
+                    <p class="eyebrow">01 / THE COLLECTION</p>
+                    <h2>The Men's Edit</h2>
+                </div>
+
+                <p>
+                    Everyday essentials, reimagined through
+                    considered proportions and understated design.
+                </p>
+
+            </div>
+
+            <div class="editorial-grid">
+
+                <article class="look-card">
+
+                    
+<a href="product.html?id=1" class="look-image">
+    <img
+        src="images/tshirt1.jpg"
+        alt="NOIRÉ black T-shirt"
+        loading="lazy">
+</a>
+
+
+                    <div class="look-meta">
+                        <div>
+                            <h3>The Monochrome Look</h3>
+                            <p>Clean lines. Confident simplicity.</p>
+                        </div>
+
+                        <span class="look-number">01</span>
+                    </div>
+
+                    <a href="product.html?id=1" class="look-action">
+                        Discover the piece
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </article>
+
+
+                <article class="look-card">
+
+                  
+<a href="product.html?id=8" class="look-image">
+    <img
+        src="images/hoodi1.jpg"
+        alt="NOIRÉ hoodie collection"
+        loading="lazy">
+</a>
+
+
+                    <div class="look-meta">
+                        <div>
+                            <h3>The Everyday Layer</h3>
+                            <p>Relaxed comfort. Refined attitude.</p>
+                        </div>
+
+                        <span class="look-number">02</span>
+                    </div>
+
+                    <a href="product.html?id=8" class="look-action">
+                        Discover the piece
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- CAMPAIGN -->
+
+        <section class="campaign">
+
+            <div>
+
+                <p class="eyebrow">
+                    LESS NOISE. MORE YOU.
+                </p>
+
+                <h2>
+                    Wear your<br>identity.
+                </h2>
+
+                <p>
+                    Personal style is not about following every trend.
+                    It is about choosing pieces that feel like you.
+                </p>
+
+                <a href="index.html#featured" class="btn btn-dark">
+                    Discover the Collection
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- WOMEN'S EDIT -->
+
+        
+
+                 <div class="editorial-grid">
+
+                <article class="look-card">
+
+                    <a href="product.html?id=5" class="look-image">
+                        <img
+                            src="images/tshirts5.jpg"
+                            alt="NOIRÉ women's essential T-shirt"
+                            loading="lazy">
+                    </a>
+
+                    <div class="look-meta">
+                        <div>
+                            <h3>The Essential Edit</h3>
+                            <p>Everyday pieces, thoughtfully selected.</p>
+                        </div>
+
+                        <span class="look-number">03</span>
+                    </div>
+
+                    <a href="product.html?id=5" class="look-action">
+                        Discover the piece
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </article>
+
+                <article class="look-card">
+
+                    <a href="product.html?id=6" class="look-image">
+                        <img
+                            src="images/tshirts6.jpg"
+                            alt="NOIRÉ contemporary women's T-shirt"
+                            loading="lazy">
+                    </a>
+
+                    <div class="look-meta">
+                        <div>
+                            <h3>The Minimalist Look</h3>
+                            <p>Understated design, everyday versatility.</p>
+                        </div>
+
+                        <span class="look-number">04</span>
+                    </div>
+
+                    <a href="product.html?id=6" class="look-action">
+                        Discover the piece
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </article>
+
+            </div>
+
+        <!-- SHOP THE LOOK -->
+
+        <section class="shop-section" id="shop-the-look">
+
+            <div class="section-heading">
+
+                <div>
+                    <p class="eyebrow">MAKE IT YOURS</p>
+                    <h2>Shop the Look</h2>
+                </div>
+
+                <p>
+                    Find your next favourite piece
+                    from the NOIRÉ collection.
+                </p>
+
+            </div>
+
+            <div class="shop-grid">
+
+                <article class="shop-card">
+
+                    
+<a href="product.html?id=2" class="shop-image">
+    <img
+        src="images/tshirt2.jpg"
+        alt="NOIRÉ white essential T-shirt"
+        loading="lazy">
+</a>
+
+
+                    <div class="shop-info">
+                        <h3>Essential Heavyweight Tee</h3>
+                        <p>₹599</p>
+
+                        <a href="product.html?id=2" class="look-action">
+                            View Product
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+                </article>
+
+
+                <article class="shop-card">
+
+                    
+<a href="product.html?id=3" class="shop-image">
+    <img
+        src="images/tshirt3.jpg"
+        alt="NOIRÉ grey T-shirt"
+        loading="lazy">
+</a>
+
+
+                    
+
+
+
+
+                    <div class="shop-info">
+                        <h3>Monochrome Statement Tee</h3>
+                        <p>₹799</p>
+
+                        <a href="product.html?id=3" class="look-action">
+                            View Product
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+                </article>
+
+
+                <article class="shop-card">
+
+                  
+<a href="product.html?id=12" class="shop-image">
+    <img
+        src="images/lower1.jpg"
+        alt="NOIRÉ lower collection"
+        loading="lazy">
+</a>
+
+
+                    <div class="shop-info">
+                        <h3>Everyday Lower</h3>
+                        <p>₹879</p>
+
+                        <a href="product.html?id=12" class="look-action">
+                            View Product
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-top">
+
+            <div>
+                <a href="index.html" class="footer-logo">NOIRÉ</a>
+
+                <p class="footer-description">
+                    Modern clothing for a generation
+                    that refuses to blend in.
+                </p>
+            </div>
+
+            <nav class="footer-links" aria-label="Footer navigation">
+                <a href="index.html">Home</a>
+                <a href="index.html#featured">Shop</a>
+                <a href="about.html">About Us</a>
+                <a href="#mens-edit">Lookbook</a>
+            </nav>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 NOIRÉ. All rights reserved.</p>
+            <p>Made for those who move differently.</p>
+        </div>
+
+    </footer>
+
+
+    <!-- MOBILE MENU SCRIPT -->
+
+    <script>
+        const menuToggle = document.querySelector(".menu-toggle");
+        const navigation = document.querySelector("#lookbook-navigation");
+        const menuIcon = menuToggle.querySelector("i");
+
+        menuToggle.addEventListener("click", function () {
+            const isOpen = navigation.classList.toggle("open");
+
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+            menuToggle.setAttribute(
+                "aria-label",
+                isOpen ? "Close navigation menu" : "Open navigation menu"
+            );
+
+            menuIcon.classList.toggle("fa-bars", !isOpen);
+            menuIcon.classList.toggle("fa-xmark", isOpen);
+        });
+
+        navigation.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                navigation.classList.remove("open");
+                menuToggle.setAttribute("aria-expanded", "false");
+                menuToggle.setAttribute("aria-label", "Open navigation menu");
+
+                menuIcon.classList.remove("fa-xmark");
+                menuIcon.classList.add("fa-bars");
+            });
+        });
+    </script>
+
+</body>
+</html>

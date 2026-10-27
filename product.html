@@ -1,0 +1,2211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Product Details | NOIRÉ</title>
+    <meta name="description" content="Discover premium essentials at NOIRÉ.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+   
+   
+
+    <style>
+        :root {
+            --bg: #f7f6f2;
+            --text: #171717;
+            --muted: #77756f;
+            --border: #deddd8;
+            --dark: #171717;
+            --white: #fff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Inter", sans-serif;
+        }
+
+        button, input {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .navbar {
+            min-height: 76px;
+            padding: 18px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: "Playfair Display", serif;
+            font-size: 29px;
+            letter-spacing: 3px;
+        }
+
+        
+.product-search-form {
+    display: flex;
+    align-items: center;
+    width: min(460px, 58%);
+    height: 46px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: #fff;
+    overflow: hidden;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.product-search-form:focus-within {
+    border-color: #77756f;
+    box-shadow: 0 0 0 3px rgba(23, 23, 23, 0.06);
+}
+
+.product-search-form input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    padding: 0 14px;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 13px;
+}
+
+.product-search-form button {
+    flex: 0 0 42px;
+    height: 100%;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    transition: background 0.2s ease;
+}
+
+.product-search-form button:hover {
+    background: #f0efeb;
+}
+
+@media (max-width: 500px) {
+    .navbar {
+        gap: 10px;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .logo {
+        font-size: 21px;
+        letter-spacing: 1px;
+    }
+
+    .product-search-form {
+        flex: 1;
+        width: auto;
+        min-width: 0;
+        height: 42px;
+        border-radius: 12px;
+    }
+
+    .product-search-form input {
+        padding: 0 9px;
+        font-size: 12px;
+    }
+
+    .product-search-form button {
+        flex-basis: 36px;
+    }
+}
+
+
+        .back-link,
+        .nav-bag {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 13px;
+        }
+
+        .page {
+            max-width: 1280px;
+            margin: auto;
+            padding: 30px 6% 75px;
+        }
+
+        .breadcrumb {
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 28px;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--text);
+        }
+
+        /* PRODUCT LAYOUT */
+
+        .product-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
+            gap: 65px;
+            align-items: start;
+        }
+
+        .gallery {
+            min-width: 0;
+        }
+
+        /* MAIN PRODUCT IMAGE */
+
+        .main-image-wrap {
+            position: relative;
+            background: #eeede8;
+            overflow: hidden;
+            aspect-ratio: 4 / 5;
+            touch-action: pan-y;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .main-image-wrap.dragging {
+            cursor: grabbing;
+        }
+
+        .main-image {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity .18s ease;
+            -webkit-user-drag: none;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .gallery-label {
+            position: absolute;
+            left: 18px;
+            top: 18px;
+            z-index: 2;
+            background: var(--bg);
+            padding: 8px 12px;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            pointer-events: none;
+        }
+
+        .gallery-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 3;
+            width: 40px;
+            height: 40px;
+            border: 0;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: var(--text);
+            background: rgba(247, 246, 242, .9);
+            opacity: .92;
+        }
+
+        .gallery-arrow:hover {
+            background: #fff;
+        }
+
+        .gallery-arrow:disabled {
+            opacity: .35;
+            cursor: default;
+        }
+
+        .gallery-arrow.prev {
+            left: 14px;
+        }
+
+        .gallery-arrow.next {
+            right: 14px;
+        }
+
+        /* IMAGE THUMBNAILS */
+
+        .thumbnail-list {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-top: 12px;
+            scrollbar-width: thin;
+        }
+
+        .thumbnail {
+            flex: 0 0 76px;
+            width: 76px;
+            height: 92px;
+            border: 1px solid transparent;
+            background: #eeede8;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .thumbnail.active {
+            border-color: var(--dark);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* PRODUCT DETAILS ON RIGHT */
+
+        .product-info {
+            padding: 10px 0 0;
+            position: sticky;
+            top: 28px;
+            min-width: 0;
+        }
+
+        .product-info-topline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .product-category-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            border: 1px solid var(--border);
+            padding: 8px 10px;
+            color: var(--muted);
+            font-size: 9px;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .product-category-pill i {
+            font-size: 10px;
+        }
+
+        .product-ref {
+            color: var(--muted);
+            font-size: 10px;
+            letter-spacing: .5px;
+            white-space: nowrap;
+        }
+
+        .product-title {
+            font-family: "Playfair Display", serif;
+            font-weight: 500;
+            font-size: clamp(29px, 3vw, 43px);
+            line-height: 1.15;
+            margin-bottom: 15px;
+            overflow-wrap: anywhere;
+        }
+
+        .product-intro {
+            color: #65635e;
+            font-size: 12px;
+            line-height: 1.8;
+            margin: 0 0 20px;
+            max-width: 440px;
+        }
+
+        .product-value-row {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .price {
+            font-size: 21px;
+            font-weight: 600;
+        }
+
+        .product-value-row .price {
+            font-size: 23px;
+        }
+
+        .product-price-caption {
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        .tax-note {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 7px;
+        }
+
+        /* PRODUCT HIGHLIGHTS */
+
+        .detail-highlights {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+            margin: 22px 0 25px;
+        }
+
+        .detail-highlight {
+            background: #efeee8;
+            padding: 13px 10px;
+            min-width: 0;
+        }
+
+        .detail-highlight i {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 9px;
+        }
+
+        .detail-highlight strong {
+            display: block;
+            font-size: 10px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .detail-highlight span {
+            display: block;
+            color: var(--muted);
+            font-size: 9px;
+            line-height: 1.5;
+        }
+
+        .eyebrow {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .line {
+            height: 1px;
+            background: var(--border);
+            margin: 25px 0;
+        }
+
+        .section-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 13px;
+        }
+
+        .size-guide {
+            color: var(--muted);
+            font-weight: 400;
+            font-size: 11px;
+        }
+
+        /* SIZE SELECTION */
+
+        .size-options {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 9px;
+        }
+
+        .size-btn {
+            min-height: 46px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text);
+            transition: .2s;
+        }
+
+        .size-btn:hover,
+        .size-btn.selected {
+            border-color: var(--dark);
+            background: var(--dark);
+            color: var(--white);
+        }
+
+        .size-btn:focus-visible,
+        button:focus-visible,
+        a:focus-visible {
+            outline: 2px solid #777;
+            outline-offset: 3px;
+        }
+
+        /* QUANTITY */
+
+        .quantity-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 25px;
+            gap: 15px;
+        }
+
+        .quantity-control {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid var(--border);
+            height: 44px;
+        }
+
+        .quantity-control button {
+            width: 42px;
+            height: 100%;
+            border: 0;
+            background: transparent;
+            font-size: 19px;
+        }
+
+        .quantity-value {
+            min-width: 28px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .stock-note {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        /* ACTION BUTTONS */
+
+        .actions {
+            display: grid;
+            gap: 11px;
+            margin-top: 25px;
+        }
+
+        .action-btn {
+            min-height: 52px;
+            width: 100%;
+            border: 1px solid var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            letter-spacing: .5px;
+            transition: .2s;
+        }
+
+        .add-btn {
+            background: transparent;
+            color: var(--dark);
+        }
+
+        .add-btn:hover {
+            background: #eae9e3;
+        }
+
+        .buy-btn {
+            background: var(--dark);
+            color: var(--white);
+        }
+
+        .buy-btn:hover {
+            background: #373737;
+        }
+
+        .action-btn:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+        .message {
+            display: none;
+            padding: 13px 15px;
+            margin-top: 15px;
+            font-size: 12px;
+            line-height: 1.6;
+            border: 1px solid var(--border);
+            background: #efeee8;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.error {
+            border-color: #b94b43;
+            color: #8c2923;
+        }
+
+        .message a {
+            text-decoration: underline;
+        }
+
+        /* PRODUCT DESCRIPTION */
+
+        .description {
+            margin-top: 28px;
+        }
+
+        .description h2 {
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .description p {
+            color: #65635e;
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        .details-list {
+            display: grid;
+            gap: 12px;
+            margin-top: 22px;
+            color: #65635e;
+            font-size: 11px;
+        }
+
+        .details-list span {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            line-height: 1.6;
+        }
+
+        .details-list i {
+            color: #77756f;
+            width: 15px;
+            text-align: center;
+        }
+
+        /* YOU MAY ALSO LIKE */
+
+        .related-section {
+            margin-top: 78px;
+        }
+
+        .related-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 15px;
+            margin-bottom: 24px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .related-kicker {
+            color: var(--muted);
+            font-size: 10px;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .related-heading h2 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(25px, 3vw, 34px);
+            font-weight: 500;
+        }
+
+        .related-hint {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .related-card {
+            min-width: 0;
+            display: block;
+        }
+
+        .related-image-wrap {
+            position: relative;
+            background: #eeede8;
+            overflow: hidden;
+            aspect-ratio: 3 / 4;
+        }
+
+        .related-image {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            transition: transform .35s ease;
+        }
+
+        .related-card:hover .related-image {
+            transform: scale(1.035);
+        }
+
+        .related-product-name {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-top: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .related-product-price {
+            font-size: 12px;
+            margin-top: 6px;
+            color: var(--muted);
+        }
+
+        .related-empty {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* FOOTER AND LOADING */
+
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 25px 6%;
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            font-size: 10px;
+            color: var(--muted);
+            letter-spacing: .5px;
+        }
+
+        .loading,
+        .not-found {
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .not-found h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 35px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .not-found p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            padding: 14px 22px;
+            background: var(--dark);
+            color: white;
+            font-size: 12px;
+        }
+
+                @media (max-width: 850px) {
+            .product-layout {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .gallery,
+            .product-info {
+                max-width: 650px;
+                width: 100%;
+                margin: auto;
+            }
+
+            .product-info {
+                position: static;
+            }
+
+            .main-image-wrap {
+                aspect-ratio: 4 / 4.5;
+            }
+
+            .related-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 22px 13px;
+            }
+
+            .related-section {
+                margin-top: 55px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .navbar {
+                min-height: 65px;
+                padding: 14px 5%;
+                gap: 10px;
+            }
+
+            .logo {
+                font-size: 23px;
+                letter-spacing: 2px;
+            }
+
+            .back-link,
+            .nav-bag {
+                font-size: 11px;
+                gap: 6px;
+            }
+
+            .page {
+                padding: 22px 5% 50px;
+            }
+
+            .breadcrumb {
+                margin-bottom: 20px;
+            }
+
+            .product-title {
+                font-size: 32px;
+            }
+
+            .thumbnail {
+                flex-basis: 65px;
+                width: 65px;
+                height: 78px;
+            }
+
+            .footer {
+                padding: 22px 5%;
+            }
+
+            .gallery-arrow {
+                width: 36px;
+                height: 36px;
+            }
+
+            .gallery-arrow.prev {
+                left: 10px;
+            }
+
+            .gallery-arrow.next {
+                right: 10px;
+            }
+
+            .related-heading {
+                align-items: start;
+                flex-direction: column;
+            }
+
+            .related-hint {
+                display: none;
+            }
+
+            .related-product-name,
+            .related-product-price {
+                font-size: 11px;
+            }
+        }
+
+        .specification-list {
+    display: grid;
+    border-top: 1px solid var(--border);
+}
+
+.specification-item {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.specification-item span {
+    color: var(--muted);
+}
+
+.specification-item strong {
+    font-weight: 500;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 500px) {
+    .specification-item {
+        grid-template-columns: 95px minmax(0, 1fr);
+        gap: 10px;
+    }
+}
+
+
+
+/* =========================================
+   NOIRÉ — SECOND IMAGE DETAILS OVERLAY
+========================================= */
+
+.main-image-wrap {
+    position: relative;
+    isolation: isolate;
+}
+
+.image-details-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 25px;
+
+    padding: 8%;
+
+    color: #ffffff;
+
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.76) 0%,
+        rgba(0, 0, 0, 0.45) 48%,
+        rgba(0, 0, 0, 0.04) 100%
+    );
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.image-details-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.image-detail-column {
+    width: 100%;
+    max-width: 260px;
+
+    opacity: 0;
+    transform: translateX(-35px);
+}
+
+.image-details-overlay.active .image-detail-column {
+    animation: imageDetailSlideIn 0.55s ease forwards;
+}
+
+.image-details-overlay.active .image-detail-column:nth-child(1) {
+    animation-delay: 0.08s;
+}
+
+.image-details-overlay.active .image-detail-column:nth-child(2) {
+    animation-delay: 0.22s;
+}
+
+.image-details-overlay.active .image-detail-column:nth-child(3) {
+    animation-delay: 0.36s;
+}
+
+.image-details-overlay.active .image-detail-column:nth-child(4) {
+    animation-delay: 0.50s;
+}
+
+.image-detail-label {
+    display: block;
+    margin-bottom: 7px;
+
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 2px;
+
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.image-detail-column h3 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(20px, 3vw, 32px);
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.image-detail-column p {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #ffffff;
+}
+
+@keyframes imageDetailSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-35px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 600px) {
+    .image-details-overlay {
+        gap: 17px;
+        padding: 6%;
+    }
+
+    .image-detail-column {
+        max-width: 200px;
+    }
+
+    .image-detail-column h3 {
+        font-size: 23px;
+    }
+
+    .image-detail-column p {
+        font-size: 12px;
+    }
+
+    .image-detail-label {
+        font-size: 8px;
+        margin-bottom: 4px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .image-details-overlay.active .image-detail-column {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+
+    </style>
+</head>
+
+<body>
+
+    
+   
+<header class="navbar">
+    <a href="index.html" class="logo">NOIRÉ</a>
+
+    <form class="product-search-form" action="search.html" method="GET">
+        <input
+            type="text"
+            name="q"
+            placeholder="Search for products"
+            aria-label="Search for products"
+            autocomplete="off"
+        >
+        <button type="submit" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </form>
+</header>
+
+    
+
+    <main class="page">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <span> / </span>
+            <span id="breadcrumb-category">Product</span>
+            <span> / </span>
+            <span id="breadcrumb-name">Details</span>
+        </div>
+
+        <div id="loading" class="loading">Loading product...</div>
+
+        <section id="not-found" class="not-found" hidden>
+            <h1>Product Not Found</h1>
+            <p>We couldn't find this product. Please return to the collection.</p>
+            <a href="index.html" class="back-button">Continue Shopping</a>
+        </section>
+
+        <section id="product-content" class="product-layout" hidden>
+            <div class="gallery">
+                <div
+                    class="main-image-wrap"
+                    id="main-image-wrap"
+                    aria-label="Product image gallery. Swipe or drag left and right to view images."
+                >
+                    <span class="gallery-label">NOIRÉ ESSENTIALS</span>
+
+                    <button
+                        type="button"
+                        class="gallery-arrow prev"
+                        id="gallery-prev"
+                        aria-label="Previous product image"
+                    >
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+
+                    <img
+                        id="main-image"
+                        class="main-image"
+                        src=""
+                        alt=""
+                        draggable="false"
+                    >
+                    
+<!-- PRODUCT DETAILS OVERLAY — SECOND IMAGE ONLY -->
+<div class="image-details-overlay" id="image-details-overlay">
+
+    <div class="image-detail-column">
+        <span class="image-detail-label">THE COLLECTION</span>
+        <h3 id="overlay-product-name">NOIRÉ ESSENTIALS</h3>
+    </div>
+
+   
+
+    <div class="image-detail-column">
+        <span class="image-detail-label">FIT</span>
+        <p id="overlay-product-fit">Regular Fit</p>
+    </div>
+
+    <div class="image-detail-column">
+        <span class="image-detail-label">MATERIAL</span>
+        <p id="overlay-product-material">Premium Fabric</p>
+    </div>
+
+    
+    <div class="image-detail-column">
+        <span class="image-detail-label">NECK TYPE</span>
+        <p id="overlay-product-neck">—</p>
+    </div>
+
+    <div class="image-detail-column">
+        <span class="image-detail-label">PATTERN</span>
+        <p id="overlay-product-pattern">—</p>
+    </div>
+
+    <div class="image-detail-column">
+        <span class="image-detail-label">SLEEVE</span>
+        <p id="overlay-product-sleeve">—</p>
+    </div>
+
+
+</div>
+
+
+
+
+                    <button
+                        type="button"
+                        class="gallery-arrow next"
+                        id="gallery-next"
+                        aria-label="Next product image"
+                    >
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <div id="thumbnail-list" class="thumbnail-list"></div>
+            </div>
+
+            <div class="product-info">
+                <div class="product-info-topline">
+                    <p id="product-category" class="product-category-pill">
+                        <i class="fa-solid fa-layer-group"></i>
+                        NOIRÉ COLLECTION
+                    </p>
+
+                    <span id="product-ref" class="product-ref">NOIRÉ ESSENTIAL</span>
+                </div>
+
+                <h1 id="product-title" class="product-title"></h1>
+
+                <p class="product-intro" id="product-intro">
+                    A versatile NOIRÉ piece made to fit effortlessly into your everyday wardrobe.
+                </p>
+
+                <div class="product-value-row">
+                    <p id="product-price" class="price"></p>
+                    <span class="product-price-caption">Inclusive of applicable taxes</span>
+                </div>
+
+                <div class="detail-highlights" aria-label="Product highlights">
+                    <div class="detail-highlight">
+                        <i class="fa-solid fa-shirt"></i>
+                        <strong>Everyday style</strong>
+                        <span>Easy to pair</span>
+                    </div>
+
+                    <div class="detail-highlight">
+                        <i class="fa-solid fa-ruler-combined"></i>
+                        <strong>Size options</strong>
+                        <span>S, M, L, XL , XXL</span>
+                    </div>
+
+                    <div class="detail-highlight">
+                        <i class="fa-solid fa-box-open"></i>
+                        <strong>NOIRÉ edit</strong>
+                        <span>Modern essentials</span>
+                    </div>
+                </div>
+
+                <div class="line"></div>
+
+                <div class="section-label">
+                    <span>Select Size</span>
+                    <span class="size-guide">Choose your preferred fit</span>
+                </div>
+
+                <div id="size-options" class="size-options">
+                    <button type="button" class="size-btn" data-size="S">S</button>
+                    <button type="button" class="size-btn" data-size="M">M</button>
+                    <button type="button" class="size-btn" data-size="L">L</button>
+                    <button type="button" class="size-btn" data-size="XL">XL</button>
+                </div>
+
+                <div class="quantity-row">
+                    <div>
+                        <div class="section-label" style="margin-bottom: 0;">Quantity</div>
+                    </div>
+
+                    <div class="quantity-control">
+                        <button type="button" id="quantity-minus" aria-label="Decrease quantity">−</button>
+                        <span id="quantity-value" class="quantity-value">1</span>
+                        <button type="button" id="quantity-plus" aria-label="Increase quantity">+</button>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button type="button" id="add-to-bag" class="action-btn add-btn">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        ADD TO BAG
+                    </button>
+
+                    <button type="button" id="buy-now" class="action-btn buy-btn">
+                        BUY NOW
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div id="product-message" class="message" role="status" aria-live="polite"></div>
+
+                <div class="line"></div>
+
+                <div class="description">
+                    <h2>PRODUCT DETAILS</h2>
+                    <p id="product-description">
+                        Discover the NOIRÉ collection, designed for everyday style.
+                    </p>
+                </div>
+
+                <!-- PRODUCT SPECIFICATIONS -->
+<div class="description product-specifications">
+    <h2>PRODUCT SPECIFICATIONS</h2>
+
+    <div class="specification-list">
+
+        <div class="specification-item">
+            <span>Fabric</span>
+            <strong id="product-fabric">—</strong>
+        </div>
+
+        <div class="specification-item">
+            <span>Material</span>
+            <strong id="product-material">—</strong>
+        </div>
+
+        <div class="specification-item">
+            <span>Fit</span>
+            <strong id="product-fit">—</strong>
+        </div>
+
+        <div class="specification-item">
+            <span>Neck Type</span>
+            <strong id="product-neck-type">—</strong>
+        </div>
+
+        <div class="specification-item">
+            <span>Pattern</span>
+            <strong id="product-pattern">—</strong>
+        </div>
+
+        <div class="specification-item">
+            <span>Sleeve</span>
+            <strong id="product-sleeve">—</strong>
+        </div>
+
+        <div class="specification-item">
+            <span>Specifications</span>
+            <strong id="product-specifications">—</strong>
+        </div>
+
+    </div>
+</div>
+
+                <div class="details-list">
+                    <span>
+                        <i class="fa-solid fa-box"></i>
+                        Carefully selected essentials
+                    </span>
+
+                    <span>
+                        <i class="fa-solid fa-shirt"></i>
+                        Select your preferred size
+                    </span>
+
+                    <span>
+                        <i class="fa-solid fa-heart"></i>
+                        Made for your everyday style
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <section
+            id="related-section"
+            class="related-section"
+            hidden
+            aria-labelledby="related-title"
+        >
+            <div class="related-heading">
+                <div>
+                    <p class="related-kicker">COMPLETE YOUR LOOK</p>
+                    <h2 id="related-title">You May Also Like</h2>
+                </div>
+
+                <p class="related-hint">Explore more NOIRÉ essentials</p>
+            </div>
+
+            <div id="related-grid" class="related-grid"></div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <span>© 2026 NOIRÉ. ALL RIGHTS RESERVED.</span>
+        <span>WEAR YOUR IDENTITY.</span>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+            const loading = document.getElementById("loading");
+            const notFound = document.getElementById("not-found");
+            const content = document.getElementById("product-content");
+
+            const mainImage = document.getElementById("main-image");
+            const mainImageWrap = document.getElementById("main-image-wrap");
+            const thumbnailList = document.getElementById("thumbnail-list");
+            const galleryPrev = document.getElementById("gallery-prev");
+            const galleryNext = document.getElementById("gallery-next");
+
+            const relatedSection = document.getElementById("related-section");
+            const relatedGrid = document.getElementById("related-grid");
+
+            const sizeOptions = document.getElementById("size-options");
+            const quantityValue = document.getElementById("quantity-value");
+            const message = document.getElementById("product-message");
+            const addButton = document.getElementById("add-to-bag");
+            const buyButton = document.getElementById("buy-now");
+
+            const params = new URLSearchParams(window.location.search);
+            const productId = params.get("id");
+
+            let product = null;
+            let selectedSize = "";
+            let quantity = 1;
+            let galleryImages = [];
+            let currentImageIndex = 0;
+            let pointerStart = null;
+
+            /* =========================================
+   NOIRÉ — SIZE-WISE PRICE
+========================================= */
+
+const SIZE_PRICE_OFFSETS = {
+    S: 0,
+    M: 50,
+    L: 100,
+    XL: 150
+};
+
+function getSelectedUnitPrice() {
+    if (!product) return 0;
+
+    const size = selectedSize || "S";
+    const extraPrice = SIZE_PRICE_OFFSETS[size] ?? 0;
+
+    return (Number(product.price) || 0) + extraPrice;
+}
+
+            function updateProductPrice() {
+    if (!product) return;
+
+    const priceElement =
+        document.getElementById("product-price");
+
+    if (!priceElement) return;
+
+    const unitPrice = getSelectedUnitPrice();
+    const totalPrice = unitPrice * quantity;
+
+    priceElement.textContent =
+        "₹" + totalPrice.toLocaleString("en-IN");
+}
+
+                     /* =========================================
+                          QUANTITY — PLUS / MINUS FIX
+                        ========================================= */
+
+                     function setQuantity(newQuantity) {
+                     quantity = Math.max(1, Math.min(20, newQuantity));
+
+                     quantityValue.textContent = quantity;
+
+                    updateProductPrice();
+              }
+
+
+            function showMessage(text, isError = false) {
+                message.textContent = text;
+                message.classList.add("show");
+                message.classList.toggle("error", isError);
+            }
+
+            
+function parsePrice(text) {
+    const cleaned = String(text || "").replace(/,/g, "");
+    const match = cleaned.match(/\d+(?:\.\d{1,2})?/);
+    return match ? Number(match[0]) : 0;
+}
+
+
+            function getCardTitle(card) {
+                const titleElement = card.querySelector(
+                    ".product-info h3, .product-info h2, h3, h2, .product-title, .product-name"
+                );
+
+                return card.dataset.name ||
+                    (titleElement && titleElement.textContent.trim()) ||
+                    "NOIRÉ Product";
+            }
+
+            
+
+            function getCardImage(card) {
+                const image = card.querySelector(".product-image img, img");
+                return image ? image.getAttribute("src") : "";
+            }
+
+            function getCardImages(card) {
+                const extraImages = (card.dataset.images || "")
+                    .split(",")
+                    .map(function (src) {
+                        return src.trim();
+                    })
+                    .filter(Boolean);
+
+                const main = getCardImage(card);
+
+                return [...new Set([main, ...extraImages].filter(Boolean))];
+            }
+
+            function getCardCategory(card) {
+                return card.dataset.category ||
+                    card.dataset.type ||
+                    card.dataset.gender ||
+                    "NOIRÉ COLLECTION";
+            }
+
+            function getCardDescription(card) {
+                return card.dataset.description ||
+                    "Discover this NOIRÉ essential, designed to bring simplicity and versatility to your everyday wardrobe.";
+            }
+
+           
+function extractProduct(doc, id) {
+    const cards = doc.querySelectorAll(".product-card[data-id]");
+
+    for (const card of cards) {
+        if (String(card.dataset.id) !== String(id)) continue;
+
+        const image = getCardImage(card);
+        const title = getCardTitle(card);
+        const priceText = getCardPrice(card);
+
+        if (!image) continue;
+
+        return {
+            id: String(card.dataset.id),
+            name: title,
+            price: parsePrice(priceText),
+            priceText: priceText,
+            image: image,
+            images: getCardImages(card),
+
+            category: getCardCategory(card),
+            description: getCardDescription(card),
+
+            // Individual product details
+            fabric: card.dataset.fabric || "",
+            material: card.dataset.material || "",
+            fit: card.dataset.fit || "",
+            neckType: card.dataset.neckType || "",
+            pattern: card.dataset.pattern || "",
+            sleeve: card.dataset.sleeve || "",
+            specifications: card.dataset.specifications || "",
+
+            // Product information
+            gender: card.dataset.gender || "",
+            type: card.dataset.type || "",
+            color: card.dataset.color || ""
+        };
+    }
+
+    return null;
+}
+
+
+
+async function fetchPageDocument(page) {
+    const response = await fetch(page, {
+        cache: "no-cache"
+    });
+
+    if (!response.ok) {
+        throw new Error("Could not load " + page);
+    }
+
+    const html = await response.text();
+
+    return new DOMParser().parseFromString(
+        html,
+        "text/html"
+    );
+}
+
+async function fetchProductFromPage(page, id) {
+    const doc = await fetchPageDocument(page);
+    return extractProduct(doc, id);
+}
+
+                
+
+function showGalleryImage(index) {
+    if (!galleryImages.length) return;
+
+    const previousIndex = currentImageIndex;
+
+    const nextIndex =
+        (index + galleryImages.length) % galleryImages.length;
+
+    const src = galleryImages[nextIndex];
+
+    const thumbnails =
+        thumbnailList.querySelectorAll(".thumbnail");
+
+    // Selected thumbnail update karo
+    thumbnails.forEach(function (item, itemIndex) {
+        const active = itemIndex === nextIndex;
+
+        item.classList.toggle("active", active);
+
+        if (active) {
+            item.setAttribute("aria-current", "true");
+
+            item.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest",
+                inline: "nearest"
+            });
+        } else {
+            item.removeAttribute("aria-current");
+        }
+    });
+
+    // Second image par hi details overlay dikhao
+    const detailsOverlay = document.getElementById(
+        "image-details-overlay"
+    );
+
+    if (detailsOverlay) {
+        const showDetails = nextIndex === 1;
+
+        detailsOverlay.classList.remove("active");
+
+        if (showDetails) {
+            // Har baar second image par aane par animation restart karo
+            void detailsOverlay.offsetWidth;
+            detailsOverlay.classList.add("active");
+
+            // Product name update karo
+            const overlayName = document.getElementById(
+                "overlay-product-name"
+            );
+
+            if (overlayName) {
+                overlayName.textContent =
+                    product.name || "NOIRÉ ESSENTIALS";
+            }
+
+            // Current selected size ke hisaab se price update karo
+            const overlayPrice = document.getElementById(
+                "overlay-product-price"
+            );
+
+            if (overlayPrice) {
+                const price =
+                    typeof getSelectedUnitPrice === "function"
+                        ? getSelectedUnitPrice()
+                        : Number(product.price) || 0;
+
+                overlayPrice.textContent =
+                    "₹" + price.toLocaleString("en-IN");
+            }
+
+            // Fit update karo
+            const overlayFit = document.getElementById(
+                "overlay-product-fit"
+            );
+
+            if (overlayFit) {
+                overlayFit.textContent =
+                    product.fit || "Regular Fit";
+            }
+
+            // Material update karo
+            const overlayMaterial = document.getElementById(
+                "overlay-product-material"
+            );
+
+            if (overlayMaterial) {
+                overlayMaterial.textContent =
+                    product.material ||
+                    product.fabric ||
+                    "Premium Fabric";
+
+                    
+            // Neck Type update karo
+            const overlayNeck = document.getElementById(
+                "overlay-product-neck"
+            );
+
+            if (overlayNeck) {
+                overlayNeck.textContent =
+                    product.neckType || "Not specified";
+            }
+
+            // Pattern update karo
+            const overlayPattern = document.getElementById(
+                "overlay-product-pattern"
+            );
+
+            if (overlayPattern) {
+                overlayPattern.textContent =
+                    product.pattern || "Not specified";
+            }
+
+            // Sleeve update karo
+            const overlaySleeve = document.getElementById(
+                "overlay-product-sleeve"
+            );
+
+            if (overlaySleeve) {
+                overlaySleeve.textContent =
+                    product.sleeve || "Not specified";
+            }
+
+            }
+        }
+    }
+
+    // Same image dobara select ho to image animation skip karo
+    if (
+        nextIndex === previousIndex &&
+        mainImage.getAttribute("src") === src
+    ) {
+        return;
+    }
+
+    // Next/previous navigation ki direction
+    let direction = 1;
+
+    if (galleryImages.length > 1) {
+        if (
+            previousIndex === galleryImages.length - 1 &&
+            nextIndex === 0
+        ) {
+            direction = 1;
+        } else if (
+            previousIndex === 0 &&
+            nextIndex === galleryImages.length - 1
+        ) {
+            direction = -1;
+        } else {
+            direction = nextIndex > previousIndex ? 1 : -1;
+        }
+    }
+
+    currentImageIndex = nextIndex;
+
+    // Image ko animation ke starting point par rakho
+    mainImage.style.transition = "none";
+    mainImage.style.opacity = "0";
+
+    mainImage.style.transform =
+        direction === 1
+            ? "translateX(35px)"
+            : "translateX(-35px)";
+
+    mainImage.src = src;
+
+    mainImage.alt =
+        (product.name || "Product") +
+        " image " +
+        (currentImageIndex + 1);
+
+    // Browser ko starting position render karne do
+    void mainImage.offsetWidth;
+
+    mainImage.style.transition =
+        "transform 0.42s cubic-bezier(.22, .61, .36, 1), opacity 0.3s ease";
+
+    requestAnimationFrame(function () {
+        mainImage.style.opacity = "1";
+        mainImage.style.transform = "translateX(0)";
+    });
+}
+
+
+function updateGalleryControls() {
+    const prevButton = document.getElementById("prev-image");
+    const nextButton = document.getElementById("next-image");
+
+    const totalImages = product && Array.isArray(product.images)
+        ? product.images.length
+        : 0;
+
+    if (prevButton) {
+        prevButton.disabled = totalImages <= 1;
+    }
+
+    if (nextButton) {
+        nextButton.disabled = totalImages <= 1;
+    }
+}
+
+
+
+
+              function renderGallery(images) {
+                    galleryImages = [...new Set(images.filter(Boolean))];
+                thumbnailList.innerHTML = "";
+
+                galleryImages.forEach(function (src, index) {
+                    const button = document.createElement("button");
+
+                    button.type = "button";
+                    button.className =
+                        "thumbnail" + (index === 0 ? " active" : "");
+
+                    button.setAttribute(
+                        "aria-label",
+                        "View product image " + (index + 1)
+                    );
+
+                    const img = document.createElement("img");
+
+                    img.src = src;
+                    img.alt = product.name + " image " + (index + 1);
+                    img.draggable = false;
+
+                    img.addEventListener("error", function () {
+                        button.hidden = true;
+                    });
+
+                    button.appendChild(img);
+
+                    button.addEventListener("click", function () {
+                        showGalleryImage(index);
+                    });
+
+                    thumbnailList.appendChild(button);
+                });
+
+                currentImageIndex = 0;
+                showGalleryImage(0);
+                updateGalleryControls();
+
+                mainImage.onerror = function () {
+                    mainImage.alt = "Product image unavailable";
+                };
+            }
+
+            /* SWIPE ON MOBILE + DRAG ON DESKTOP */
+
+            mainImageWrap.addEventListener("pointerdown", function (event) {
+                if (event.target.closest(".gallery-arrow")) return;
+                if (event.pointerType === "mouse" && event.button !== 0) return;
+
+                pointerStart = {
+                    x: event.clientX,
+                    y: event.clientY
+                };
+
+                mainImageWrap.classList.add("dragging");
+            });
+
+            mainImageWrap.addEventListener("pointerup", function (event) {
+                if (!pointerStart) return;
+
+                const deltaX = event.clientX - pointerStart.x;
+                const deltaY = event.clientY - pointerStart.y;
+
+                pointerStart = null;
+                mainImageWrap.classList.remove("dragging");
+
+                if (
+                    Math.abs(deltaX) < 45 ||
+                    Math.abs(deltaX) < Math.abs(deltaY) * 1.2
+                ) {
+                    return;
+                }
+
+                if (deltaX < 0) {
+                    showGalleryImage(currentImageIndex + 1);
+                } else {
+                    showGalleryImage(currentImageIndex - 1);
+                }
+            });
+
+            mainImageWrap.addEventListener("pointercancel", function () {
+                pointerStart = null;
+                mainImageWrap.classList.remove("dragging");
+            });
+
+            mainImageWrap.addEventListener("pointerleave", function () {
+                /* Keep the drag active until pointerup. */
+            });
+
+            galleryPrev.addEventListener("click", function () {
+                showGalleryImage(currentImageIndex - 1);
+            });
+
+            galleryNext.addEventListener("click", function () {
+                showGalleryImage(currentImageIndex + 1);
+            });
+
+            /* YOU MAY ALSO LIKE */
+
+            function renderRelatedProducts(docs) {
+                const allCards = [];
+                const seenIds = new Set();
+
+                docs.forEach(function (doc) {
+                    if (!doc) return;
+
+                    doc.querySelectorAll(".product-card[data-id]")
+                        .forEach(function (card) {
+                            const id = String(card.dataset.id || "").trim();
+
+                            if (
+                                !id ||
+                                id === String(product.id) ||
+                                seenIds.has(id)
+                            ) {
+                                return;
+                            }
+
+                            const image = getCardImage(card);
+
+                            if (!image) return;
+
+                            seenIds.add(id);
+
+                            allCards.push({
+                                id: id,
+                                name: getCardTitle(card),
+                                price: parsePrice(getCardPrice(card)),
+                                image: image,
+                                category: getCardCategory(card),
+                                gender: card.dataset.gender || "",
+                                type: card.dataset.type || ""
+                            });
+                        });
+                });
+
+                /* Prefer similar product type and gender. */
+
+                const currentType =
+                    String(product.type || product.category || "").toLowerCase();
+
+                const currentGender =
+                    String(product.gender || "").toLowerCase();
+
+                allCards.sort(function (a, b) {
+                    function score(item) {
+                        let value = 0;
+
+                        if (
+                            currentType &&
+                            String(item.type || item.category).toLowerCase()
+                                === currentType
+                        ) {
+                            value += 2;
+                        }
+
+                        if (
+                            currentGender &&
+                            String(item.gender).toLowerCase() === currentGender
+                        ) {
+                            value += 1;
+                        }
+
+                        return value;
+                    }
+
+                    return score(b) - score(a);
+                });
+
+                const selected = allCards.slice(0, 4);
+
+                relatedGrid.innerHTML = "";
+
+                if (!selected.length) {
+                    relatedGrid.innerHTML =
+                        '<p class="related-empty">More NOIRÉ essentials will appear here soon.</p>';
+
+                    relatedSection.hidden = false;
+                    return;
+                }
+
+                selected.forEach(function (item) {
+                    const link = document.createElement("a");
+
+                    link.className = "related-card";
+                    link.href =
+                        "product.html?id=" + encodeURIComponent(item.id);
+
+                    link.setAttribute("aria-label", "View " + item.name);
+
+                    const imageWrap = document.createElement("div");
+                    imageWrap.className = "related-image-wrap";
+
+                    const image = document.createElement("img");
+
+                    image.className = "related-image";
+                    image.src = item.image;
+                    image.alt = item.name;
+                    image.loading = "lazy";
+
+                    image.addEventListener("error", function () {
+                        link.hidden = true;
+                    });
+
+                    const name = document.createElement("h3");
+
+                    name.className = "related-product-name";
+                    name.textContent = item.name;
+
+                    const price = document.createElement("p");
+
+                    price.className = "related-product-price";
+                    price.textContent =
+                        "₹" + item.price.toLocaleString("en-IN");
+
+                    imageWrap.appendChild(image);
+                    link.appendChild(imageWrap);
+                    link.appendChild(name);
+                    link.appendChild(price);
+
+                    relatedGrid.appendChild(link);
+                });
+
+                relatedSection.hidden = false;
+            }
+
+
+            /* DISPLAY THE SELECTED PRODUCT */
+
+            
+function showProductNotFound() {
+    const title = document.getElementById("product-title");
+    const description = document.getElementById("product-description");
+
+    if (title) {
+        title.textContent = "Product Not Found";
+    }
+
+    if (description) {
+        description.textContent =
+            "Sorry, this product could not be loaded. Please return to the shop and try again.";
+    }
+}
+
+
+            function renderProduct() {
+                document.title = product.name + " | NOIRÉ";
+
+                document.getElementById("product-title").textContent =
+                    product.name;
+
+                
+                updateProductPrice();
+
+
+                document.getElementById("product-category").innerHTML =
+                    '<i class="fa-solid fa-layer-group" aria-hidden="true"></i> ' +
+                    String(product.category).replace(/[-_]/g, " ");
+
+                document.getElementById("product-ref").textContent =
+                    "NOIRÉ / " + String(product.id).padStart(3, "0");
+
+                document.getElementById("product-intro").textContent =
+                    product.description;
+
+                    
+document.getElementById("product-fabric").textContent =
+    product.fabric || "Not specified";
+
+document.getElementById("product-material").textContent =
+    product.material || "Not specified";
+
+document.getElementById("product-fit").textContent =
+    product.fit || "Not specified";
+
+document.getElementById("product-specifications").textContent =
+    product.specifications || "Not specified";
+
+
+                document.getElementById("product-description").textContent =
+                    product.description;
+
+                document.getElementById("breadcrumb-category").textContent =
+                    product.category;
+
+                document.getElementById("breadcrumb-name").textContent =
+                    product.name;
+
+                renderGallery(product.images);
+
+                loading.hidden = true;
+                notFound.hidden = true;
+                content.hidden = false;
+            }
+
+            /* QUANTITY: MINIMUM 1, MAXIMUM 20 */
+
+           
+           
+function getCardPrice(card) {
+    if (!card) return 0;
+
+    const priceElement = card.querySelector(
+        ".product-bottom span, .price, .product-price"
+    );
+
+    if (priceElement) {
+        const priceText = priceElement.textContent.trim();
+        const price = Number(priceText.replace(/[^\d]/g, ""));
+
+        if (price > 0) {
+            return price;
+        }
+    }
+
+    return 0;
+}
+
+
+            /* SIZE SELECTION */
+
+            sizeOptions.addEventListener("click", function (event) {
+                const button = event.target.closest("[data-size]");
+
+                if (!button) return;
+
+                selectedSize = button.dataset.size;
+                updateProductPrice();
+
+                sizeOptions.querySelectorAll(".size-btn")
+                    .forEach(function (item) {
+                        item.classList.toggle("selected", item === button);
+
+                        item.setAttribute(
+                            "aria-pressed",
+                            String(item === button)
+                        );
+                    });
+
+                message.classList.remove("show", "error");
+            });
+
+            document.getElementById("quantity-minus")
+                .addEventListener("click", function () {
+                    setQuantity(quantity - 1);
+                });
+
+            document.getElementById("quantity-plus")
+                .addEventListener("click", function () {
+                    setQuantity(quantity + 1);
+                });
+
+            /* BAG ITEM DATA */
+
+            function makeBagItem() {
+                return {
+                    id: product.id,
+                    name: product.name,
+                    title: product.name,
+                    price: getSelectedUnitPrice(),
+                    image: product.image,
+                    size: selectedSize,
+                    quantity: quantity
+                };
+            }
+
+            /* ADD TO BAG */
+
+            function addProductToBag() {
+                if (!selectedSize) {
+                    showMessage(
+                        "Please select a size before adding this product to your bag.",
+                        true
+                    );
+
+                    return false;
+                }
+
+                try {
+                    const key = "noireBagItems";
+                    const saved = localStorage.getItem(key);
+                    const bag = saved ? JSON.parse(saved) : [];
+
+                    if (!Array.isArray(bag)) {
+                        showMessage(
+                            "Your saved bag data needs checking. Please contact the site owner.",
+                            true
+                        );
+
+                        return false;
+                    }
+
+                    const existingItem = bag.find(function (item) {
+                        return (
+                            String(item.id) === String(product.id) &&
+                            String(item.size || "") === selectedSize
+                        );
+                    });
+
+                    if (existingItem) {
+                        existingItem.quantity = Math.min(
+                            99,
+                            Number(existingItem.quantity || 1) + quantity
+                        );
+                    } else {
+                        bag.push(makeBagItem());
+                    }
+
+                    localStorage.setItem(key, JSON.stringify(bag));
+
+                    showMessage(
+                        product.name +
+                        " (Size " + selectedSize +
+                        ") added to your bag. Quantity: " + quantity + "."
+                    );
+
+                    return true;
+                } catch (error) {
+                    showMessage(
+                        "Could not update the bag. Please check your browser storage settings.",
+                        true
+                    );
+
+                    return false;
+                }
+            }
+
+            addButton.addEventListener("click", function () {
+                addProductToBag();
+            });
+
+            /* BUY NOW PLACEHOLDER */
+
+            buyButton.addEventListener("click", function () {
+                if (!selectedSize) {
+                    showMessage(
+                        "Please select a size before continuing.",
+                        true
+                    );
+
+                    return;
+                }
+
+                showMessage(
+                    "Your selection is ready: " +
+                    product.name +
+                    ", Size " + selectedSize +
+                    ", Quantity " + quantity +
+                    ". Online checkout is coming soon."
+                );
+            });
+
+            /* LOAD PRODUCT FROM index.html OR collections.html */
+
+            if (!productId) {
+                showProductNotFound();
+                return;
+            }
+
+            try {
+                const homepageDoc = await fetchPageDocument("index.html");
+
+                product = extractProduct(homepageDoc, productId);
+
+                let collectionsDoc = null;
+
+                if (!product) {
+                    collectionsDoc =
+                        await fetchPageDocument("collections.html");
+
+                    product = extractProduct(collectionsDoc, productId);
+                }
+
+                if (!product) {
+                    showProductNotFound();
+                    return;
+                }
+
+                renderProduct();
+
+                /* Load collection products for recommendations. */
+
+                if (!collectionsDoc) {
+                    try {
+                        collectionsDoc =
+                            await fetchPageDocument("collections.html");
+                    } catch (error) {
+                        collectionsDoc = null;
+                    }
+                }
+
+                renderRelatedProducts([homepageDoc, collectionsDoc]);
+
+            } catch (error) {
+                console.error("NOIRÉ product loading error:", error);
+                showProductNotFound();
+            }
+        });
+    </script>
+</body>
+</html>

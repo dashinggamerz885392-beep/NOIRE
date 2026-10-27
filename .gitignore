@@ -1,0 +1,11 @@
+
+# Dependencies
+noire-backend/node_modules/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+npm-debug.log*
