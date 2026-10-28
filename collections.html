@@ -140,169 +140,59 @@
         </div>
     </footer>
 
-    <!-- PRODUCTS -->
-    <script>
-        const collectionItems = [
-            {
-                id: 1, gender: "men", color: "black", fit: "oversized",
-                type: "tshirt", category: "PREMIUM", name: "BLACK LOOK",
-                price: "₹999", image: "images/tshirt1.jpg",
-                alt: "Black oversized T-shirt", tag: "NEW",
-                tags: "black t-shirt tshirt tee oversized premium casual streetwear men fashion"
-            },
-            {
-                id: 2, gender: "men", color: "white", fit: "regular",
-                type: "tshirt", category: "ESSENTIALS", name: "Essential Heavyweight Tee",
-                price: "₹599", image: "images/tshirt2.jpg",
-                alt: "Premium white T-shirt",
-                tags: "white t-shirt tshirt tee regular premium essentials casual men fashion"
-            },
-            {
-                id: 3, gender: "men", color: "grey gray", fit: "regular",
-                type: "tshirt", category: "LIMITED", name: "Monochrome Statement Tee",
-                price: "₹799", image: "images/tshirt3.jpg",
-                alt: "Premium grey T-shirt",
-                tags: "grey gray t-shirt tshirt tee regular limited premium casual streetwear men fashion"
-            },
-            {
-                id: 4, gender: "men", color: "beige", fit: "regular",
-                type: "tshirt", category: "CORE", name: "Neutral Core Tee",
-                price: "₹699", image: "images/tshirt4.jpg",
-                alt: "Premium beige T-shirt",
-                tags: "beige t-shirt tshirt tee regular core premium casual men fashion"
-            },
-            {
-                id: 5, gender: "women", color: "grey gray", fit: "regular",
-                type: "tshirt", category: "EXCLUSIVE FEMME", name: "Femme Essential Tee",
-                price: "₹299", image: "images/tshirts5.jpg",
-                alt: "Women's T-shirt",
-                tags: "grey gray t-shirt tshirt tee regular limited premium casual women fashion"
-            },
-            {
-                id: 6, gender: "women", color: "grey gray", fit: "regular",
-                type: "tshirt", category: "PREMIUM EDIT", name: "Luna Essential Tee",
-                price: "₹399", image: "images/tshirts6.jpg",
-                alt: "Women's premium T-shirt",
-                tags: "grey gray t-shirt tshirt tee regular premium casual women fashion"
-            },
-            {
-                id: 7, gender: "women", color: "grey gray", fit: "regular",
-                type: "tshirt", category: "SIGNATURE EDIT", name: "Muse Essential Tee",
-                price: "₹279", image: "images/tshirts7.jpg",
-                alt: "Women's signature T-shirt",
-                tags: "grey gray t-shirt tshirt tee regular signature casual women fashion"
-            },
-            {
-                id: 8, gender: "men", color: "grey gray", fit: "regular",
-                type: "hoodie", category: "LUXE ESSENTIAL", name: "Velvet Form Tee",
-                price: "₹299", image: "images/hoodi1.jpg",
-                alt: "NOIRÉ clothing",
-                tags: "grey gray hoodie hoodies sweatshirt men fashion"
-            },
-            {
-                id: 9, gender: "men", color: "grey gray", fit: "regular",
-                type: "hoodie", category: "EXCLUSIVE CORE", name: "Lumière Tee",
-                price: "₹549", image: "images/hoodi2.jpg",
-                alt: "NOIRÉ clothing",
-                tags: "grey gray hoodie hoodies sweatshirt men fashion"
-            },
-            {
-                id: 10, gender: "men", color: "grey gray", fit: "regular",
-                type: "hoodie", category: "LIMITED LUXE", name: "Aura Essential Tee",
-                price: "₹799", image: "images/hoodi3.jpg",
-                alt: "NOIRÉ hoodie",
-                tags: "grey gray hoodie hoodies sweatshirt men fashion"
-            },
-            {
-                id: 11, gender: "women", color: "grey gray", fit: "regular",
-                type: "hoodie", category: "SIGNATURE FEMME", name: "Velvet Form Tee",
-                price: "₹560", image: "images/hoodi4.jpg",
-                alt: "Women's NOIRÉ clothing",
-                tags: "grey gray hoodie hoodies sweatshirt women fashion"
-            },
-            {
-                id: 12, gender: "women", color: "grey gray", fit: "regular",
-                type: "lower", category: "ICONIC EDIT", name: "Luna Essential Tee",
-                price: "₹879", image: "images/lower1.jpg",
-                alt: "Women's lower",
-                tags: "grey gray lower lowers joggers women fashion"
-            },
-            {
-                id: 13, gender: "women", color: "grey gray", fit: "regular",
-                type: "lower", category: "SIGNATURE EDIT", name: "Noir Femme Tee",
-                price: "₹990", image: "images/lower2.jpg",
-                alt: "Women's lower",
-                tags: "grey gray lower lowers joggers women fashion"
-            },
-            {
-                id: 14, gender: "women", color: "grey gray", fit: "regular",
-                type: "lower", category: "PREMIUM FEMME", name: "Muse Essential Tee",
-                price: "₹250", image: "images/lower3.jpg",
-                alt: "Women's lower",
-                tags: "grey gray lower lowers joggers women fashion"
-            },
-            {
-                id: 15, gender: "men", color: "grey gray", fit: "regular",
-                type: "lower", category: "LIMITED LUXE", name: "Aura Essential Tee",
-                price: "₹320", image: "images/lower4.jpg",
-                alt: "Men's lower",
-                tags: "grey gray lower lowers joggers men fashion"
-            },
-            {
-                id: 16, gender: "men", color: "grey gray", fit: "regular",
-                type: "hoodie", category: "LIMITED LUXE", name: "Aura Essential Tee",
-                price: "₹799", image: "images/hoodi3.jpg",
-                alt: "NOIRÉ hoodie",
-                tags: "grey gray hoodie hoodies sweatshirt men fashion"
-            },
-            {
-                id: 17, gender: "men", color: "grey gray", fit: "regular",
-                type: "hoodie", category: "LIMITED LUXE", name: "Aura Essential Tee",
-                price: "₹799", image: "images/hoodi3.jpg",
-                alt: "NOIRÉ hoodie",
-                tags: "grey gray hoodie hoodies sweatshirt men fashion"
-            },
-            {
-                id: 18, gender: "men", color: "grey gray", fit: "regular",
-                type: "hoodie", category: "LIMITED LUXE", name: "Aura Essential Tee",
-                price: "₹799", image: "images/hoodi3.jpg",
-                alt: "NOIRÉ hoodie",
-                tags: "grey gray hoodie hoodies sweatshirt men fashion"
+  
+<!-- PRODUCTS: automatically load cards from index.html -->
+<script>
+    async function loadCollectionsProducts() {
+        const productsContainer =
+            document.getElementById("collectionsProducts");
+
+        try {
+            const response = await fetch("index.html");
+
+            if (!response.ok) {
+                throw new Error("Could not load index.html");
             }
-        ];
 
-        const productsContainer = document.getElementById("collectionsProducts");
+            const html = await response.text();
 
-        productsContainer.innerHTML = collectionItems.map(item => `
-            <article class="product-card"
-                data-id="${item.id}"
-                data-gender="${item.gender}"
-                data-color="${item.color}"
-                data-fit="${item.fit}"
-                data-type="${item.type}"
-                data-category="${item.category.toLowerCase()} ${item.gender}"
-                data-tags="${item.tags}">
+            const parser = new DOMParser();
+            const homePage = parser.parseFromString(
+                html,
+                "text/html"
+            );
 
-                <div class="product-image">
-                    ${item.tag ? `<span class="product-tag">${item.tag}</span>` : ""}
-                    <img src="${item.image}" alt="${item.alt}">
-                    
-                </div>
+            const homeProducts = homePage.querySelector(
+                "#featured .products"
+            );
 
-                <div class="product-info">
-                    <p class="category">${item.category}</p>
-                    <h3>${item.name}</h3>
+            if (!homeProducts) {
+                throw new Error("Home page products were not found");
+            }
 
-                    <div class="product-bottom">
-                        <span>${item.price}</span>
-                        <button class="heart" type="button" aria-label="Add to wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-                    </div>
-                </div>
-            </article>
-        `).join("");
-    </script>
+            const productCards =
+                homeProducts.querySelectorAll(".product-card");
+
+            productsContainer.replaceChildren(
+                ...Array.from(productCards, card =>
+                    card.cloneNode(true)
+                )
+            );
+
+        } catch (error) {
+            console.error(
+                "NOIRÉ collections loading error:",
+                error
+            );
+
+            productsContainer.innerHTML =
+                "<p>Products load nahi ho paaye. Page refresh karo.</p>";
+        }
+    }
+
+    loadCollectionsProducts();
+</script>
+
 
     <!-- EXISTING WEBSITE JAVASCRIPT -->
     <script src="app.js"></script>
