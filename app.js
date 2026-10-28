@@ -1,41 +1,3 @@
- 
-/* =========================================
-   NOIRÉ — MOBILE MENU OPEN / CLOSE
-========================================= */
-
-document.addEventListener("DOMContentLoaded", function () {
-    const menuToggle = document.querySelector(".mobile-menu-toggle");
-    const navLinks = document.querySelector(".nav-links");
-
-    if (!menuToggle || !navLinks) return;
-
-    menuToggle.addEventListener("click", function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        navLinks.classList.toggle("mobile-menu-open");
-
-        const isOpen = navLinks.classList.contains("mobile-menu-open");
-        menuToggle.setAttribute("aria-expanded", String(isOpen));
-    });
-
-    navLinks.querySelectorAll("a").forEach(function (link) {
-        link.addEventListener("click", function () {
-            navLinks.classList.remove("mobile-menu-open");
-            menuToggle.setAttribute("aria-expanded", "false");
-        });
-    });
-
-    document.addEventListener("click", function (event) {
-        if (
-            !navLinks.contains(event.target) &&
-            !menuToggle.contains(event.target)
-        ) {
-            navLinks.classList.remove("mobile-menu-open");
-            menuToggle.setAttribute("aria-expanded", "false");
-        }
-    });
-});
 
  
  /* =========================================
@@ -85,34 +47,44 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /* =========================================
    NOIRÉ — MEN & WOMEN PRODUCT FILTER
+   Works with dynamically loaded product cards
 ========================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
-    const filterLinks = document.querySelectorAll(".nav-links a[data-filter]");
-    const productCards = document.querySelectorAll(".product-card");
-    const logo = document.querySelector(".logo");
+document.addEventListener("click", function (event) {
+    const filterLink = event.target.closest(".nav-links a[data-filter]");
 
-    function filterProducts(gender) {
-        productCards.forEach(function (product) {
+    if (filterLink) {
+        const gender = (filterLink.dataset.filter || "").toLowerCase();
+
+        if (!gender) return;
+
+        event.preventDefault();
+
+        document.querySelectorAll(".product-card").forEach(function (product) {
             const productGender = (product.dataset.gender || "").toLowerCase();
+
             product.style.display =
                 gender === "all" || productGender === gender ? "" : "none";
         });
+
+        const featured = document.querySelector("#featured");
+
+        if (featured) {
+            featured.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+        return;
     }
 
-    filterLinks.forEach(function (link) {
-        link.addEventListener("click", function () {
-            const gender = (link.dataset.filter || "").toLowerCase();
-            if (gender) filterProducts(gender);
-        });
-    });
+    const logo = event.target.closest(".logo");
 
-    if (logo) {
-        logo.addEventListener("click", function () {
-            filterProducts("all");
+    if (logo && document.querySelector("#collectionsProducts")) {
+        document.querySelectorAll(".product-card").forEach(function (product) {
+            product.style.display = "";
         });
     }
 });
+
 
 
 /* =========================================
