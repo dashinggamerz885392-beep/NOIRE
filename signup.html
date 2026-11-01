@@ -1,0 +1,782 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | NOIRÉ</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f7f6f2;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 15px;
+        }
+
+        .signup-container {
+            width: 100%;
+            max-width: 440px;
+            background: #fff;
+            padding: 45px 38px;
+            border: 1px solid #e5e3dc;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 34px;
+            letter-spacing: 5px;
+            text-align: center;
+            color: #171717;
+            margin-bottom: 35px;
+        }
+
+        h1 {
+            font-size: 25px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 9px;
+        }
+
+        .subtitle {
+            color: #777;
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 9px;
+        }
+
+        input {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #deddd8;
+            padding: 0 14px;
+            font-size: 13px;
+            outline: none;
+            font-family: inherit;
+            background: #fff;
+        }
+
+        input:focus {
+            border-color: #171717;
+        }
+
+        .signup-btn {
+            width: 100%;
+            height: 49px;
+            border: none;
+            background: #171717;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .signup-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #message {
+            font-size: 12px;
+            line-height: 1.6;
+            margin-top: 18px;
+            text-align: center;
+        }
+
+        .login-link {
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            margin-top: 25px;
+        }
+
+        .login-link a {
+            color: #171717;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            color: #777;
+            font-size: 11px;
+            text-decoration: none;
+            margin-top: 22px;
+        }
+
+        @media(max-width: 480px) {
+            .signup-container {
+                padding: 35px 23px;
+            }
+        }
+
+        
+/* PREMIUM ROUNDED DESIGN */
+
+.login-container,
+.signup-container {
+    border-radius: 18px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+}
+
+input {
+    border-radius: 10px;
+    transition: 0.25s ease;
+}
+
+input:focus {
+    border-color: #171717;
+    box-shadow: 0 0 0 3px rgba(23, 23, 23, 0.06);
+}
+
+.login-btn,
+.signup-btn {
+    border-radius: 10px;
+    transition: 0.3s ease;
+}
+
+.login-btn:hover,
+.signup-btn:hover {
+    background: #383838;
+}
+
+.forgot {
+    transition: 0.2s ease;
+}
+
+.forgot:hover,
+.login-link a:hover,
+.signup-link a:hover {
+    opacity: 0.65;
+}
+
+/* PASSWORD SHOW / HIDE */
+
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input {
+    padding-right: 48px;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: #777;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.password-toggle:hover {
+    color: #171717;
+}
+
+.password-toggle svg {
+    width: 19px;
+    height: 19px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* SIGNUP METHOD SWITCH */
+
+.signup-methods {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.method-btn {
+    flex: 1;
+    height: 43px;
+    border: 1px solid #deddd8;
+    background: #fff;
+    color: #171717;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.method-btn.active {
+    background: #171717;
+    color: #fff;
+    border-color: #171717;
+}
+
+.otp-section {
+    display: none;
+}
+
+.otp-section .form-group {
+    margin-bottom: 19px;
+}
+
+.otp-section .signup-btn {
+    margin-top: 8px;
+}
+
+#otp-message {
+    font-size: 12px;
+    line-height: 1.6;
+    margin-top: 18px;
+    text-align: center;
+}
+
+#verify-section {
+    display: none;
+}
+
+
+
+
+    </style>
+</head>
+
+<body>
+
+    <div class="signup-container">
+
+        <div class="logo">NOIRÉ</div>
+
+        <h1>Create Account</h1>
+
+        <p class="subtitle">
+            Join NOIRÉ and discover your style.
+        </p>
+
+                <!-- SIGNUP METHOD SWITCH -->
+
+        <div class="signup-methods">
+
+            <button type="button" class="method-btn active" id="password-mode">
+                PASSWORD
+            </button>
+
+            <button type="button" class="method-btn" id="otp-mode">
+                EMAIL OTP
+            </button>
+
+        </div>
+
+        <form id="signup-form">
+
+            <div class="form-group">
+                <label for="full-name">FULL NAME</label>
+                <input
+                    type="text"
+                    id="full-name"
+                    placeholder="Enter your full name"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="email">EMAIL ADDRESS</label>
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                >
+            </div>
+
+            
+<div class="form-group">
+    <label for="password">PASSWORD</label>
+
+    <div class="password-wrapper">
+        <input
+            type="password"
+            id="password"
+            placeholder="Minimum 8 characters"
+            minlength="8"
+            required
+        >
+
+        <button type="button" class="password-toggle" data-target="password" aria-label="Show password">
+            <svg viewBox="0 0 24 24">
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/>
+                <circle cx="12" cy="12" r="3"/>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="confirm-password">CONFIRM PASSWORD</label>
+
+    <div class="password-wrapper">
+        <input
+            type="password"
+            id="confirm-password"
+            placeholder="Confirm your password"
+            minlength="8"
+            required
+        >
+
+        <button type="button" class="password-toggle" data-target="confirm-password" aria-label="Show password">
+            <svg viewBox="0 0 24 24">
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/>
+                <circle cx="12" cy="12" r="3"/>
+            </svg>
+        </button>
+    </div>
+</div>
+
+
+            <button type="submit" class="signup-btn" id="signup-btn">
+                CREATE ACCOUNT
+            </button>
+
+            <p id="message" role="status" aria-live="polite"></p>
+
+        </form>
+
+                <!-- EMAIL OTP SIGNUP -->
+
+        <div class="otp-section" id="otp-section">
+
+            <div id="send-otp-section">
+
+                <div class="form-group">
+                    <label for="otp-full-name">FULL NAME</label>
+                    <input
+                        type="text"
+                        id="otp-full-name"
+                        placeholder="Enter your full name"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="otp-email">EMAIL ADDRESS</label>
+                    <input
+                        type="email"
+                        id="otp-email"
+                        placeholder="Enter your email"
+                    >
+                </div>
+
+                <button type="button" class="signup-btn" id="send-otp-btn">
+                    SEND OTP
+                </button>
+
+            </div>
+
+            <div id="verify-section">
+
+                <div class="form-group">
+                    <label for="otp-code">6-DIGIT VERIFICATION CODE</label>
+                    <input
+                        type="text"
+                        id="otp-code"
+                        placeholder="Enter your OTP"
+                        inputmode="numeric"
+                        autocomplete="one-time-code"
+                        maxlength="6"
+                    >
+                </div>
+
+                <button type="button" class="signup-btn" id="verify-otp-btn">
+                    VERIFY OTP
+                </button>
+
+            </div>
+
+            <p id="otp-message" role="status" aria-live="polite"></p>
+
+        </div>
+
+        <p class="login-link">
+            Already have an account?
+            <a href="login.html">Login</a>
+        </p>
+
+        <a href="index.html" class="back-link">
+            ← BACK TO NOIRÉ
+        </a>
+
+    </div>
+
+    <script>
+        // SUPABASE CONFIGURATION
+
+        const SUPABASE_URL =
+            "https://ygpmnhhqhcoyivrxwngw.supabase.co";
+
+        const SUPABASE_KEY =
+            "sb_publishable_-hJcIeoHdieoniCwu4AOAg_TqPg993e";
+
+        const supabaseClient = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+        // SIGNUP SYSTEM
+
+        
+// PASSWORD SHOW / HIDE FEATURE
+
+document.querySelectorAll(".password-toggle").forEach(button => {
+
+    button.addEventListener("click", function () {
+
+        const passwordInput = document.getElementById(this.dataset.target);
+
+        if (passwordInput.type === "password") {
+
+            // Password visible - Eye Open
+            passwordInput.type = "text";
+
+            this.setAttribute("aria-label", "Hide password");
+
+            this.innerHTML = `
+                <svg viewBox="0 0 24 24">
+                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+            `;
+
+        } else {
+
+            // Password hidden - Eye Closed
+            passwordInput.type = "password";
+
+            this.setAttribute("aria-label", "Show password");
+
+            this.innerHTML = `
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 3l18 18"/>
+                    <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"/>
+                    <path d="M9.9 5.2A11 11 0 0 1 12 5c6.5 0 10 7 10 7a15 15 0 0 1-4 4.5"/>
+                    <path d="M6.2 6.2C3.5 8 2 12 2 12s3.5 7 10 7a10 10 0 0 0 3-.5"/>
+                </svg>
+            `;
+
+        }
+
+    });
+
+});
+
+
+        const signupForm = document.getElementById("signup-form");
+        const signupBtn = document.getElementById("signup-btn");
+        const message = document.getElementById("message");
+
+        signupForm.addEventListener("submit", async function (e) {
+
+            e.preventDefault();
+
+            const fullName =
+                document.getElementById("full-name").value.trim();
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const password =
+                document.getElementById("password").value;
+
+            const confirmPassword =
+                document.getElementById("confirm-password").value;
+
+            message.style.color = "#d93025";
+
+            if (password.length < 8) {
+                message.textContent =
+                    "Password must contain at least 8 characters.";
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                message.textContent =
+                    "Passwords do not match.";
+                return;
+            }
+
+            signupBtn.disabled = true;
+            signupBtn.textContent = "CREATING ACCOUNT...";
+
+            message.textContent = "";
+
+            try {
+
+                const { data, error } =
+                    await supabaseClient.auth.signUp({
+
+                        email: email,
+
+                        password: password,
+
+                        options: {
+                            data: {
+                                full_name: fullName
+                            },
+
+                            emailRedirectTo:
+                                window.location.origin + "/login.html"
+                        }
+
+                    });
+
+                if (error) {
+                    throw error;
+                }
+
+                if (data.session) {
+
+                    message.style.color = "#16803c";
+                    message.textContent =
+                        "Account created successfully!";
+
+                } else {
+
+                    message.style.color = "#16803c";
+                    message.textContent =
+                        "Account created! Please check your email and verify your account.";
+
+                }
+
+                signupForm.reset();
+
+            } catch (error) {
+
+                message.style.color = "#d93025";
+                message.textContent = error.message;
+
+            } finally {
+
+                signupBtn.disabled = false;
+                signupBtn.textContent = "CREATE ACCOUNT";
+
+            }
+
+        });
+
+        // ===================================
+// NOIRE EMAIL OTP SIGNUP SYSTEM
+// ===================================
+
+const passwordMode = document.getElementById("password-mode");
+const otpMode = document.getElementById("otp-mode");
+
+const otpSection = document.getElementById("otp-section");
+const sendOtpSection = document.getElementById("send-otp-section");
+const verifySection = document.getElementById("verify-section");
+
+const sendOtpBtn = document.getElementById("send-otp-btn");
+const verifyOtpBtn = document.getElementById("verify-otp-btn");
+
+const otpMessage = document.getElementById("otp-message");
+
+let otpEmail = "";
+
+
+// SWITCH TO PASSWORD SIGNUP
+
+passwordMode.addEventListener("click", function () {
+
+    passwordMode.classList.add("active");
+    otpMode.classList.remove("active");
+
+    signupForm.style.display = "block";
+    otpSection.style.display = "none";
+
+});
+
+
+// SWITCH TO EMAIL OTP SIGNUP
+
+otpMode.addEventListener("click", function () {
+
+    otpMode.classList.add("active");
+    passwordMode.classList.remove("active");
+
+    signupForm.style.display = "none";
+    otpSection.style.display = "block";
+
+});
+
+
+// SEND OTP
+
+sendOtpBtn.addEventListener("click", async function () {
+
+    const fullName =
+        document.getElementById("otp-full-name").value.trim();
+
+    const email =
+        document.getElementById("otp-email").value.trim();
+
+    otpMessage.style.color = "#d93025";
+
+    if (!fullName || !email) {
+
+        otpMessage.textContent =
+            "Please enter your full name and email address.";
+
+        return;
+    }
+
+    sendOtpBtn.disabled = true;
+    sendOtpBtn.textContent = "SENDING OTP...";
+
+    otpMessage.textContent = "";
+
+    try {
+
+        const { error } =
+            await supabaseClient.auth.signInWithOtp({
+
+                email: email,
+
+                options: {
+                    shouldCreateUser: true,
+
+                    data: {
+                        full_name: fullName
+                    }
+                }
+
+            });
+
+        if (error) {
+            throw error;
+        }
+
+        otpEmail = email;
+
+        otpMessage.style.color = "#16803c";
+
+        otpMessage.textContent =
+            "OTP sent successfully! Please check your email.";
+
+        sendOtpSection.style.display = "none";
+        verifySection.style.display = "block";
+
+    } catch (error) {
+
+        otpMessage.style.color = "#d93025";
+        otpMessage.textContent = error.message;
+
+    } finally {
+
+        sendOtpBtn.disabled = false;
+        sendOtpBtn.textContent = "SEND OTP";
+
+    }
+
+});
+
+
+// VERIFY OTP
+
+verifyOtpBtn.addEventListener("click", async function () {
+
+    const otp =
+        document.getElementById("otp-code").value.trim();
+
+    otpMessage.style.color = "#d93025";
+
+    if (!/^\d{6}$/.test(otp)) {
+
+        otpMessage.textContent =
+            "Please enter a valid 6-digit OTP.";
+
+        return;
+    }
+
+    verifyOtpBtn.disabled = true;
+    verifyOtpBtn.textContent = "VERIFYING...";
+
+    otpMessage.textContent = "";
+
+    try {
+
+        const { data, error } =
+            await supabaseClient.auth.verifyOtp({
+
+                email: otpEmail,
+                token: otp,
+                type: "email"
+
+            });
+
+        if (error) {
+            throw error;
+        }
+
+        if (!data.session) {
+            throw new Error("Verification completed, but login session was not created.");
+        }
+
+        otpMessage.style.color = "#16803c";
+
+        otpMessage.textContent =
+            "Email verified! Your NOIRÉ account is ready.";
+
+        document.getElementById("otp-code").value = "";
+
+        verifyOtpBtn.textContent = "VERIFIED";
+
+    } catch (error) {
+
+        otpMessage.style.color = "#d93025";
+        otpMessage.textContent = error.message;
+
+        verifyOtpBtn.disabled = false;
+        verifyOtpBtn.textContent = "VERIFY OTP";
+
+    }
+
+});
+
+
+    </script>
+
+</body>
+</html>

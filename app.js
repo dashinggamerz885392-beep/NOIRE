@@ -1017,7 +1017,12 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             bagItemsContainer.innerHTML = bagItems.map(function (item) {
                 return `
-                    <article class="noire-bag-item">
+                   
+                <article
+    class="noire-bag-item"
+    data-product-id="${escapeHTML(item.id)}"
+    title="View product details"
+>
                         <img
                             src="${escapeHTML(item.image)}"
                             alt="${escapeHTML(item.name)}"
@@ -1120,12 +1125,13 @@ document.addEventListener("DOMContentLoaded", function () {
         renderBag();
     });
 
-    // Remove products directly from the Bag panel
-    bagItemsContainer.addEventListener("click", function (event) {
-        const removeButton = event.target.closest("[data-remove-id]");
+   // Bag product click + Remove functionality
+bagItemsContainer.addEventListener("click", function (event) {
 
-        if (!removeButton) return;
+    // REMOVE BUTTON — existing functionality unchanged
+    const removeButton = event.target.closest("[data-remove-id]");
 
+    if (removeButton) {
         const productId = removeButton.dataset.removeId;
 
         bagItems = bagItems.filter(function (item) {
@@ -1134,7 +1140,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
         saveBag();
         renderBag();
-    });
+
+        return;
+    }
+
+    // PRODUCT COLUMN CLICK — open product details
+    const bagItem = event.target.closest(".noire-bag-item");
+
+    if (!bagItem) return;
+
+    const productId = bagItem.dataset.productId;
+
+    if (!productId) return;
+
+    window.location.href =
+        "product.html?id=" + encodeURIComponent(productId);
+});
 
     // Search results may add cloned product cards after page load
     const productObserver = new MutationObserver(function () {

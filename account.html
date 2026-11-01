@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account | NOIRÉ</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f7f6f2;
+            color: #171717;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            height: 82px;
+            padding: 0 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f7f6f2;
+            border-bottom: 1px solid #deddd8;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 30px;
+            letter-spacing: 4px;
+            color: #171717;
+            text-decoration: none;
+        }
+
+        .back-link {
+            color: #333;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .account-container {
+            max-width: 1050px;
+            margin: 65px auto;
+            padding: 0 25px;
+        }
+
+        .eyebrow {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #888;
+            margin-bottom: 14px;
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 38px;
+        }
+
+        .account-card {
+            background: #fff;
+            border: 1px solid #e8e6e0;
+            border-radius: 16px;
+            padding: 35px;
+            display: grid;
+            grid-template-columns: 190px 1fr;
+            gap: 35px;
+        }
+
+        .profile-side {
+            border-right: 1px solid #eee;
+            padding-right: 25px;
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 105px;
+            height: 105px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            background: #171717;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+        }
+
+        .profile-side h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .verified {
+            color: #36865a;
+            font-size: 11px;
+        }
+
+        .profile-details h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 25px;
+            font-weight: 500;
+            margin-bottom: 27px;
+        }
+
+        .detail-item {
+            margin-bottom: 24px;
+        }
+
+        .detail-label {
+            color: #888;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            margin-bottom: 9px;
+        }
+
+        .detail-value {
+            font-size: 14px;
+            color: #222;
+            overflow-wrap: anywhere;
+        }
+
+        .account-actions {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logout-btn {
+            background: #171717;
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 8px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background: #444;
+        }
+
+        .status-message {
+            color: #777;
+            font-size: 13px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 100px 20px;
+            color: #777;
+        }
+
+        @media (max-width: 650px) {
+            .navbar {
+                padding: 0 5%;
+                height: 70px;
+            }
+
+            .account-container {
+                margin: 40px auto;
+            }
+
+            .page-title {
+                font-size: 34px;
+            }
+
+            .account-card {
+                grid-template-columns: 1fr;
+                padding: 25px 20px;
+                gap: 25px;
+            }
+
+            .profile-side {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+                padding: 0 0 25px;
+            }
+
+            .account-actions {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="logo">NOIRÉ</a>
+        <a href="index.html" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Continue Shopping
+        </a>
+    </header>
+
+    <main class="account-container">
+
+        <p class="eyebrow">NOIRÉ MEMBERSHIP</p>
+        <h1 class="page-title">My Account</h1>
+        <p class="subtitle">Welcome to your personal NOIRÉ space.</p>
+
+        <div id="loading" class="loading">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+            <p style="margin-top: 12px;">Loading your account...</p>
+        </div>
+
+        <section class="account-card" id="account-card" style="display:none;">
+
+            <div class="profile-side">
+                <div class="profile-avatar" id="profile-avatar">N</div>
+                <h3 id="side-name">NOIRÉ Member</h3>
+                <p class="verified">
+                    <i class="fa-solid fa-circle-check"></i> VERIFIED ACCOUNT
+                </p>
+            </div>
+
+            <div class="profile-details">
+                <h2>Personal Information</h2>
+
+                <div class="detail-item">
+                    <p class="detail-label">FULL NAME</p>
+                    <p class="detail-value" id="full-name">Loading...</p>
+                </div>
+
+                <div class="detail-item">
+                    <p class="detail-label">EMAIL ADDRESS</p>
+                    <p class="detail-value" id="email">Loading...</p>
+                </div>
+
+                <div class="detail-item">
+                    <p class="detail-label">MEMBER SINCE</p>
+                    <p class="detail-value" id="created-at">Loading...</p>
+                </div>
+
+                <div class="account-actions">
+                    <p class="status-message" id="status-message">
+                        Your account is active.
+                    </p>
+
+                    <button class="logout-btn" id="logout-btn" type="button">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        LOG OUT
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        const SUPABASE_URL = "https://ygpmnhhqhcoyivrxwngw.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_-hJcIeoHdieoniCwu4AOAg_TqPg993e";
+
+        const supabaseClient = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+        async function loadAccount() {
+            const loading = document.getElementById("loading");
+            const accountCard = document.getElementById("account-card");
+
+            try {
+                const { data: { user }, error: userError } =
+                    await supabaseClient.auth.getUser();
+
+                if (userError || !user) {
+                    window.location.href = "login.html";
+                    return;
+                }
+
+                const { data: profile, error: profileError } =
+                    await supabaseClient
+                        .from("profiles")
+                        .select("full_name, email, created_at")
+                        .eq("id", user.id)
+                        .single();
+
+                if (profileError) {
+                    console.error("Profile loading error:", profileError);
+                }
+
+                const fullName =
+                    profile?.full_name ||
+                    user.user_metadata?.full_name ||
+                    "NOIRÉ Member";
+
+                const email =
+                    profile?.email ||
+                    user.email ||
+                    "Not available";
+
+                document.getElementById("full-name").textContent = fullName;
+                document.getElementById("email").textContent = email;
+                document.getElementById("side-name").textContent = fullName;
+
+                document.getElementById("profile-avatar").textContent =
+                    fullName.charAt(0).toUpperCase();
+
+                const createdAt = profile?.created_at || user.created_at;
+
+                document.getElementById("created-at").textContent =
+                    createdAt
+                        ? new Date(createdAt).toLocaleDateString("en-IN", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric"
+                        })
+                        : "Not available";
+
+                loading.style.display = "none";
+                accountCard.style.display = "grid";
+
+            } catch (error) {
+                console.error("Account error:", error);
+                loading.textContent = "Unable to load your account. Please refresh.";
+            }
+        }
+
+        document.getElementById("logout-btn").addEventListener("click", async () => {
+            const button = document.getElementById("logout-btn");
+
+            button.disabled = true;
+            button.textContent = "LOGGING OUT...";
+
+            const { error } = await supabaseClient.auth.signOut();
+
+            if (error) {
+                console.error("Logout error:", error);
+                button.disabled = false;
+                button.textContent = "LOG OUT";
+                document.getElementById("status-message").textContent =
+                    "Logout failed. Please try again.";
+                return;
+            }
+
+            window.location.href = "login.html";
+        });
+
+        loadAccount();
+    </script>
+
+</body>
+</html>

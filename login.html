@@ -1,0 +1,457 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | NOIRÉ</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f7f6f2;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 15px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 440px;
+            background: #fff;
+            padding: 45px 38px;
+            border: 1px solid #e5e3dc;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 34px;
+            letter-spacing: 5px;
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        h1 {
+            font-size: 25px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 9px;
+        }
+
+        .subtitle {
+            color: #777;
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 9px;
+        }
+
+        input {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #deddd8;
+            padding: 0 14px;
+            font-size: 13px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        input:focus {
+            border-color: #171717;
+        }
+
+        .login-btn {
+            width: 100%;
+            height: 49px;
+            border: none;
+            background: #171717;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .forgot {
+            display: block;
+            text-align: right;
+            color: #555;
+            font-size: 11px;
+            text-decoration: none;
+            margin-top: -8px;
+            margin-bottom: 22px;
+        }
+
+        #message {
+            font-size: 12px;
+            line-height: 1.6;
+            text-align: center;
+            margin-top: 18px;
+        }
+
+        .signup-link {
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            margin-top: 25px;
+        }
+
+        .signup-link a {
+            color: #171717;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            color: #777;
+            font-size: 11px;
+            text-decoration: none;
+            margin-top: 22px;
+        }
+
+        @media(max-width: 480px) {
+            .login-container {
+                padding: 35px 23px;
+            }
+        }
+
+        
+/* PREMIUM ROUNDED DESIGN */
+
+.login-container,
+.signup-container {
+    border-radius: 18px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+}
+
+input {
+    border-radius: 10px;
+    transition: 0.25s ease;
+}
+
+input:focus {
+    border-color: #171717;
+    box-shadow: 0 0 0 3px rgba(23, 23, 23, 0.06);
+}
+
+.login-btn,
+.signup-btn {
+    border-radius: 10px;
+    transition: 0.3s ease;
+}
+
+.login-btn:hover,
+.signup-btn:hover {
+    background: #383838;
+}
+
+.forgot {
+    transition: 0.2s ease;
+}
+
+.forgot:hover,
+.login-link a:hover,
+.signup-link a:hover {
+    opacity: 0.65;
+}
+
+
+/* PASSWORD SHOW / HIDE */
+
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input {
+    padding-right: 48px;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: #777;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.password-toggle:hover {
+    color: #171717;
+}
+
+.password-toggle svg {
+    width: 19px;
+    height: 19px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+
+
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="logo">NOIRÉ</div>
+
+        <h1>Welcome Back</h1>
+
+        <p class="subtitle">
+            Login to your NOIRÉ account.
+        </p>
+
+        <form id="login-form">
+
+            <div class="form-group">
+                <label for="email">EMAIL ADDRESS</label>
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                >
+            </div>
+
+           
+<div class="form-group">
+    <label for="password">PASSWORD</label>
+
+    <div class="password-wrapper">
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+        >
+
+        <button
+            type="button"
+            class="password-toggle"
+            data-target="password"
+            aria-label="Show password"
+        >
+            <svg viewBox="0 0 24 24">
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/>
+                <circle cx="12" cy="12" r="3"/>
+            </svg>
+        </button>
+    </div>
+</div>
+
+
+            <a href="#" class="forgot" id="forgot-password">
+                Forgot Password?
+            </a>
+
+            <button type="submit" class="login-btn" id="login-btn">
+                LOGIN
+            </button>
+
+            <p id="message" role="status" aria-live="polite"></p>
+
+        </form>
+
+        <p class="signup-link">
+            Don't have an account?
+            <a href="signup.html">Create Account</a>
+        </p>
+
+        <a href="index.html" class="back-link">
+            ← BACK TO NOIRÉ
+        </a>
+
+    </div>
+
+    <script>
+        const SUPABASE_URL =
+            "https://ygpmnhhqhcoyivrxwngw.supabase.co";
+
+        const SUPABASE_KEY =
+            "sb_publishable_-hJcIeoHdieoniCwu4AOAg_TqPg993e";
+
+        const supabaseClient = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+        const loginForm = document.getElementById("login-form");
+        const loginBtn = document.getElementById("login-btn");
+        const message = document.getElementById("message");
+
+        
+// PASSWORD SHOW / HIDE FEATURE
+
+document.querySelectorAll(".password-toggle").forEach(button => {
+
+    button.addEventListener("click", function () {
+
+        const passwordInput = document.getElementById(this.dataset.target);
+
+        if (passwordInput.type === "password") {
+
+            passwordInput.type = "text";
+            this.setAttribute("aria-label", "Hide password");
+
+            this.innerHTML = `
+                <svg viewBox="0 0 24 24">
+                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+            `;
+
+        } else {
+
+            passwordInput.type = "password";
+            this.setAttribute("aria-label", "Show password");
+
+            this.innerHTML = `
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 3l18 18"/>
+                    <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"/>
+                    <path d="M9.9 5.2A11 11 0 0 1 12 5c6.5 0 10 7 10 7a15 15 0 0 1-4 4.5"/>
+                    <path d="M6.2 6.2C3.5 8 2 12 2 12s3.5 7 10 7a10 10 0 0 0 3-.5"/>
+                </svg>
+            `;
+
+        }
+
+    });
+
+});
+
+
+        loginForm.addEventListener("submit", async function(e) {
+
+            e.preventDefault();
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const password =
+                document.getElementById("password").value;
+
+            loginBtn.disabled = true;
+            loginBtn.textContent = "LOGGING IN...";
+
+            message.textContent = "";
+            message.style.color = "#d93025";
+
+            try {
+
+                const { data, error } =
+                    await supabaseClient.auth.signInWithPassword({
+
+                        email: email,
+                        password: password
+
+                    });
+
+                if (error) {
+                    throw error;
+                }
+
+                message.style.color = "#16803c";
+                message.textContent = "Login successful! Redirecting...";
+
+                window.location.href = "index.html";
+
+            } catch(error) {
+
+                message.style.color = "#d93025";
+                message.textContent = error.message;
+
+                loginBtn.disabled = false;
+                loginBtn.textContent = "LOGIN";
+
+            }
+
+        });
+
+        // FORGOT PASSWORD
+
+        document.getElementById("forgot-password")
+            .addEventListener("click", async function(e) {
+
+                e.preventDefault();
+
+                const email =
+                    document.getElementById("email").value.trim();
+
+                if (!email) {
+                    message.style.color = "#d93025";
+                    message.textContent =
+                        "Please enter your email address first.";
+                    return;
+                }
+
+                const { error } =
+                    await supabaseClient.auth.resetPasswordForEmail(
+                        email,
+                        {
+                            redirectTo:
+                                window.location.origin + "/login.html"
+                        }
+                    );
+
+                if (error) {
+                    message.style.color = "#d93025";
+                    message.textContent = error.message;
+                } else {
+                    message.style.color = "#16803c";
+                    message.textContent =
+                        "Password reset link sent. Check your email.";
+                }
+
+            });
+    </script>
+
+</body>
+</html>

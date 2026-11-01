@@ -994,6 +994,10 @@
     }
 }
 
+.gallery-arrow {
+    display: none !important;
+}
+
 
 
     </style>
@@ -1297,6 +1301,8 @@
         <span>WEAR YOUR IDENTITY.</span>
     </footer>
 
+    <script src="products.js"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", async function () {
             const loading = document.getElementById("loading");
@@ -1498,6 +1504,50 @@ async function fetchProductFromPage(page, id) {
     const doc = await fetchPageDocument(page);
     return extractProduct(doc, id);
 }
+
+
+/* =========================================
+   NOIRÉ — LOAD PRODUCT FROM CENTRAL DATABASE
+========================================= */
+
+function extractCentralProduct(id) {
+
+    const item = NOIRE_PRODUCTS.find(function (product) {
+        return String(product.id) === String(id);
+    });
+
+    if (!item) return null;
+
+    const images = [
+        item.image,
+        ...(item.images || [])
+    ].filter(Boolean);
+
+    return {
+        id: String(item.id),
+        name: item.name,
+        price: Number(item.price) || 0,
+        priceText: "₹" + Number(item.price || 0),
+        image: item.image,
+        images: [...new Set(images)],
+
+        category: item.category || item.type || "NOIRÉ COLLECTION",
+        description: item.description || "",
+
+        fabric: item.fabric || "",
+        material: item.material || "",
+        fit: item.fit || "",
+        neckType: item.neckType || item.neck_type || "",
+        pattern: item.pattern || "",
+        sleeve: item.sleeve || "",
+        specifications: item.specifications || "",
+
+        gender: item.gender || "",
+        type: item.type || "",
+        color: item.color || ""
+    };
+}
+
 
                 
 
@@ -2160,51 +2210,75 @@ function getCardPrice(card) {
                 );
             });
 
-            /* LOAD PRODUCT FROM index.html OR collections.html */
+           
+/* =========================================
+   LOAD PRODUCT FROM CENTRAL DATABASE
+   OR EXISTING HTML PRODUCT CARDS
+========================================= */
 
-            if (!productId) {
-                showProductNotFound();
-                return;
-            }
+if (!productId) {
+    showProductNotFound();
+    return;
+}
 
-            try {
-                const homepageDoc = await fetchPageDocument("index.html");
+try {
 
-                product = extractProduct(homepageDoc, productId);
+    // First check the central product database
+    product = extractCentralProduct(productId);
 
-                let collectionsDoc = null;
+    let homepageDoc = null;
+    let collectionsDoc = null;
 
-                if (!product) {
-                    collectionsDoc =
-                        await fetchPageDocument("collections.html");
+    // If product is not in database, check existing HTML products
+    if (!product) {
 
-                    product = extractProduct(collectionsDoc, productId);
-                }
+        homepageDoc = await fetchPageDocument("index.html");
 
-                if (!product) {
-                    showProductNotFound();
-                    return;
-                }
+        product = extractProduct(homepageDoc, productId);
 
-                renderProduct();
+        if (!product) {
 
-                /* Load collection products for recommendations. */
+            collectionsDoc =
+                await fetchPageDocument("collections.html");
 
-                if (!collectionsDoc) {
-                    try {
-                        collectionsDoc =
-                            await fetchPageDocument("collections.html");
-                    } catch (error) {
-                        collectionsDoc = null;
-                    }
-                }
+            product = extractProduct(collectionsDoc, productId);
+        }
+    }
 
-                renderRelatedProducts([homepageDoc, collectionsDoc]);
+    if (!product) {
+        showProductNotFound();
+        return;
+    }
 
-            } catch (error) {
-                console.error("NOIRÉ product loading error:", error);
-                showProductNotFound();
-            }
+    renderProduct();
+
+    // Load existing products for recommendations
+    if (!homepageDoc) {
+        try {
+            homepageDoc = await fetchPageDocument("index.html");
+        } catch (error) {
+            homepageDoc = null;
+        }
+    }
+
+    if (!collectionsDoc) {
+        try {
+            collectionsDoc =
+                await fetchPageDocument("collections.html");
+        } catch (error) {
+            collectionsDoc = null;
+        }
+    }
+
+    renderRelatedProducts([homepageDoc, collectionsDoc]);
+
+} catch (error) {
+
+    console.error("NOIRÉ product loading error:", error);
+    showProductNotFound();
+
+}
+
         });
     </script>
 </body>
