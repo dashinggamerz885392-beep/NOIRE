@@ -38,7 +38,7 @@ images: [
 
         category: "ESSENTIALS",
         type: "tshirt",
-        gender: "women",
+        gender: "men",
 
         color: "white",
         fit: "regular",
@@ -52,7 +52,7 @@ images: [
 
         tags: "white tshirt tee women regular casual",
 
-        sizes: ["S", "M", "L", "XL"],
+        sizes: ["S", "M", "L", "XXL"],
 
         description: "A clean and minimal everyday tee."
     }

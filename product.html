@@ -999,6 +999,217 @@
 }
 
 
+/* =====================================
+   NOIRÉ — CUSTOMER REVIEWS
+===================================== */
+
+.reviews-section {
+    max-width: 1200px;
+    margin: 90px auto;
+    padding: 0 24px;
+    color: #222;
+}
+
+.reviews-heading {
+    margin-bottom: 30px;
+}
+
+.reviews-heading h2 {
+    font-size: 32px;
+    margin: 8px 0;
+    font-family: "Playfair Display", serif;
+}
+
+.reviews-heading > p:last-child {
+    color: #777;
+    font-size: 14px;
+}
+
+.reviews-summary {
+    padding: 25px;
+    background: #f7f6f2;
+    border: 1px solid #e5e3dd;
+    margin-bottom: 35px;
+}
+
+.reviews-average {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.reviews-average strong {
+    font-size: 38px;
+}
+
+.reviews-average span {
+    color: #777;
+    font-size: 13px;
+}
+
+.reviews-stars {
+    color: #c49a45;
+    letter-spacing: 3px;
+    font-size: 21px;
+}
+
+.review-form-wrapper {
+    max-width: 650px;
+    margin-bottom: 45px;
+}
+
+.review-form-wrapper h3 {
+    font-size: 21px;
+    margin-bottom: 15px;
+}
+
+#review-login-message {
+    color: #777;
+    font-size: 14px;
+}
+
+#review-login-message a {
+    color: #222;
+    font-weight: 600;
+}
+
+#review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#review-form[hidden] {
+    display: none;
+}
+
+#review-form label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.review-rating-input {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.review-rating-input button {
+    border: none;
+    background: transparent;
+    color: #ccc;
+    font-size: 29px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.review-rating-input button.active {
+    color: #c49a45;
+}
+
+#review-text {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    background: #fff;
+    font: inherit;
+    font-size: 14px;
+    resize: vertical;
+    outline: none;
+}
+
+#review-text:focus {
+    border-color: #777;
+}
+
+#submit-review {
+    width: fit-content;
+    padding: 13px 25px;
+    background: #171717;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+#review-message {
+    font-size: 13px;
+    color: #777;
+}
+
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.review-card {
+    padding: 22px 0;
+    border-bottom: 1px solid #e5e3dd;
+}
+
+.review-card-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.review-card h4 {
+    margin: 0 0 7px;
+    font-size: 15px;
+}
+
+.review-card .review-date {
+    color: #888;
+    font-size: 12px;
+}
+
+.review-card .review-stars {
+    color: #c49a45;
+    letter-spacing: 2px;
+    margin: 8px 0;
+}
+
+.review-card p {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+}
+
+.review-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 12px;
+}
+
+.review-actions button {
+    border: none;
+    background: none;
+    padding: 0;
+    color: #555;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+@media (max-width: 600px) {
+    .reviews-section {
+        margin: 60px auto;
+        padding: 0 16px;
+    }
+
+    .reviews-heading h2 {
+        font-size: 26px;
+    }
+
+    .reviews-summary {
+        padding: 18px;
+    }
+}
+
 
     </style>
 </head>
@@ -1277,6 +1488,74 @@
             </div>
         </section>
 
+        
+<!-- =====================================
+     NOIRÉ — CUSTOMER REVIEWS
+===================================== -->
+
+<section class="reviews-section" id="reviews-section">
+
+    <div class="reviews-heading">
+        <p class="related-kicker">CUSTOMER FEEDBACK</p>
+        <h2>Customer Reviews</h2>
+        <p>Real opinions from the NOIRÉ community.</p>
+    </div>
+
+    <div class="reviews-summary">
+        <div class="reviews-average">
+            <strong id="average-rating">0.0</strong>
+            <div class="reviews-stars" id="average-stars">☆☆☆☆☆</div>
+            <span id="total-reviews">0 reviews</span>
+        </div>
+    </div>
+
+    <div class="review-form-wrapper" id="review-form-wrapper">
+
+        <h3>Write a Review</h3>
+
+        <p id="review-login-message">
+            Please log in to share your experience.
+            <a href="login.html">Login</a>
+        </p>
+
+        <form id="review-form" hidden>
+
+            <label>Your Rating</label>
+
+            <div class="review-rating-input" id="review-rating-input">
+                <button type="button" data-rating="1">★</button>
+                <button type="button" data-rating="2">★</button>
+                <button type="button" data-rating="3">★</button>
+                <button type="button" data-rating="4">★</button>
+                <button type="button" data-rating="5">★</button>
+            </div>
+
+            <label for="review-text">Your Review</label>
+
+            <textarea
+                id="review-text"
+                rows="4"
+                maxlength="1000"
+                placeholder="Share your experience with this product..."
+                required
+            ></textarea>
+
+            <button type="submit" id="submit-review">
+                Submit Review
+            </button>
+
+            <p id="review-message"></p>
+
+        </form>
+    </div>
+
+    <div class="reviews-list" id="reviews-list">
+        <p>Loading reviews...</p>
+    </div>
+
+</section>
+
+
         <section
             id="related-section"
             class="related-section"
@@ -1300,6 +1579,17 @@
         <span>© 2026 NOIRÉ. ALL RIGHTS RESERVED.</span>
         <span>WEAR YOUR IDENTITY.</span>
     </footer>
+
+    <!-- SUPABASE LIBRARY -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- NOIRÉ SUPABASE CONNECTION -->
+<script>
+    const supabaseClient = window.supabase.createClient(
+        "https://ygpmnhhqhcoyivrxwngw.supabase.co",
+        "sb_publishable_-hJcIeoHdieoniCwu4AOAg_TqPg993e"
+    );
+</script>
 
     <script src="products.js"></script>
 
@@ -2210,6 +2500,258 @@ function getCardPrice(card) {
                 );
             });
 
+            /* =====================================
+   NOIRÉ — SUPABASE PRODUCT REVIEWS
+===================================== */
+
+let selectedReviewRating = 0;
+let currentReviewUser = null;
+let existingUserReview = null;
+
+const reviewForm = document.getElementById("review-form");
+const reviewLoginMessage = document.getElementById("review-login-message");
+const reviewText = document.getElementById("review-text");
+const reviewMessage = document.getElementById("review-message");
+const reviewList = document.getElementById("reviews-list");
+const reviewRatingButtons = document.querySelectorAll(
+    "#review-rating-input button"
+);
+
+function setReviewRating(rating) {
+    selectedReviewRating = rating;
+
+    reviewRatingButtons.forEach(function (button) {
+        const value = Number(button.dataset.rating);
+        button.classList.toggle("active", value <= rating);
+    });
+}
+
+reviewRatingButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+        setReviewRating(Number(button.dataset.rating));
+    });
+});
+
+async function loadProductReviews() {
+    try {
+       const { data: sessionData, error: sessionError } =
+    await supabaseClient.auth.getSession();
+
+if (sessionError) throw sessionError;
+
+currentReviewUser = sessionData.session
+    ? sessionData.session.user
+    : null;
+
+        if (currentReviewUser) {
+            reviewLoginMessage.hidden = true;
+            reviewForm.hidden = false;
+        } else {
+            reviewLoginMessage.hidden = false;
+            reviewForm.hidden = true;
+        }
+
+        const { data: reviews, error } = await supabaseClient
+            .from("product_reviews")
+            .select("*")
+            .eq("product_id", String(productId))
+            .order("created_at", { ascending: false });
+
+        if (error) throw error;
+
+        const total = reviews.length;
+
+        const average = total
+            ? reviews.reduce((sum, item) => sum + item.rating, 0) / total
+            : 0;
+
+        document.getElementById("average-rating").textContent =
+            average.toFixed(1);
+
+        document.getElementById("average-stars").textContent =
+            "★".repeat(Math.round(average)) +
+            "☆".repeat(5 - Math.round(average));
+
+        document.getElementById("total-reviews").textContent =
+            total + (total === 1 ? " review" : " reviews");
+
+        existingUserReview = currentReviewUser
+            ? reviews.find(item => item.user_id === currentReviewUser.id) || null
+            : null;
+
+        if (existingUserReview) {
+            reviewText.value = existingUserReview.review;
+            setReviewRating(existingUserReview.rating);
+
+            document.getElementById("submit-review").textContent =
+                "Update Review";
+        } else {
+            reviewText.value = "";
+            setReviewRating(0);
+
+            document.getElementById("submit-review").textContent =
+                "Submit Review";
+        }
+
+        if (!total) {
+            reviewList.innerHTML = "<p>No reviews yet. Be the first to review!</p>";
+            return;
+        }
+
+        reviewList.innerHTML = reviews.map(function (item) {
+            const isOwner =
+                currentReviewUser &&
+                item.user_id === currentReviewUser.id;
+
+            const date = new Date(item.created_at).toLocaleDateString(
+                "en-IN",
+                {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+
+            const safeReview = document.createElement("div");
+            safeReview.textContent = item.review;
+
+            return `
+                <article class="review-card">
+                    <div class="review-card-header">
+                        <div>
+                            <h4>${isOwner ? "Your Review" : "NOIRÉ Customer"}</h4>
+                            <span class="review-date">${date}</span>
+                        </div>
+                    </div>
+
+                    <div class="review-stars">
+                        ${"★".repeat(item.rating)}${"☆".repeat(5 - item.rating)}
+                    </div>
+
+                    <p>${escapeReviewText(item.review)}</p>
+
+                    ${isOwner ? `
+                        <div class="review-actions">
+                            <button type="button" data-edit-review="${item.id}">
+                                Edit
+                            </button>
+                            <button type="button" data-delete-review="${item.id}">
+                                Delete
+                            </button>
+                        </div>
+                    ` : ""}
+                </article>
+            `;
+        }).join("");
+
+    } catch (error) {
+        console.error("NOIRÉ reviews loading error:", error);
+        reviewList.textContent = "Could not load reviews. Please try again.";
+    }
+}
+
+function escapeReviewText(value) {
+    const element = document.createElement("div");
+    element.textContent = value;
+    return element.innerHTML;
+}
+
+reviewForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    if (!currentReviewUser) {
+        reviewMessage.textContent = "Please log in first.";
+        return;
+    }
+
+    if (!selectedReviewRating) {
+        reviewMessage.textContent = "Please select a star rating.";
+        return;
+    }
+
+    const review = reviewText.value.trim();
+
+    if (!review) {
+        reviewMessage.textContent = "Please write your review.";
+        return;
+    }
+
+    const submitButton = document.getElementById("submit-review");
+    submitButton.disabled = true;
+    reviewMessage.textContent = "Saving your review...";
+
+    try {
+        let result;
+
+        if (existingUserReview) {
+            result = await supabaseClient
+                .from("product_reviews")
+                .update({
+                    rating: selectedReviewRating,
+                    review: review
+                })
+                .eq("id", existingUserReview.id)
+                .eq("user_id", currentReviewUser.id);
+        } else {
+            result = await supabaseClient
+                .from("product_reviews")
+                .insert({
+                    product_id: String(productId),
+                    user_id: currentReviewUser.id,
+                    rating: selectedReviewRating,
+                    review: review
+                });
+        }
+
+        if (result.error) throw result.error;
+
+        reviewMessage.textContent = "Your review has been saved!";
+        await loadProductReviews();
+
+    } catch (error) {
+        console.error("NOIRÉ review save error:", error);
+        reviewMessage.textContent =
+            "Could not save your review. Please try again.";
+    } finally {
+        submitButton.disabled = false;
+    }
+});
+
+reviewList.addEventListener("click", async function (event) {
+    const editButton = event.target.closest("[data-edit-review]");
+    const deleteButton = event.target.closest("[data-delete-review]");
+
+    if (editButton && existingUserReview) {
+        reviewText.value = existingUserReview.review;
+        setReviewRating(existingUserReview.rating);
+        reviewText.focus();
+        return;
+    }
+
+    if (deleteButton && existingUserReview) {
+        const confirmed = confirm("Are you sure you want to delete your review?");
+
+        if (!confirmed) return;
+
+        try {
+            const { error } = await supabaseClient
+                .from("product_reviews")
+                .delete()
+                .eq("id", existingUserReview.id)
+                .eq("user_id", currentReviewUser.id);
+
+            if (error) throw error;
+
+            reviewMessage.textContent = "Your review has been deleted.";
+            await loadProductReviews();
+
+        } catch (error) {
+            console.error("NOIRÉ review delete error:", error);
+            reviewMessage.textContent = "Could not delete your review.";
+        }
+    }
+});
+
            
 /* =========================================
    LOAD PRODUCT FROM CENTRAL DATABASE
@@ -2251,6 +2793,7 @@ try {
     }
 
     renderProduct();
+    await loadProductReviews();
 
     // Load existing products for recommendations
     if (!homepageDoc) {
