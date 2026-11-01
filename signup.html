@@ -758,6 +758,9 @@ verifyOtpBtn.addEventListener("click", async function () {
 
         otpMessage.textContent =
             "Email verified! Your NOIRÉ account is ready.";
+        setTimeout(() => {
+    window.location.href = "index.html";
+}, 2000);
 
         document.getElementById("otp-code").value = "";
 
