@@ -557,8 +557,10 @@ document.querySelectorAll(".password-toggle").forEach(button => {
                                 full_name: fullName
                             },
 
-                            emailRedirectTo:
-                                window.location.origin + "/login.html"
+                          emailRedirectTo:
+    window.location.origin +
+    (window.location.pathname.includes("/NOIRE/") ? "/NOIRE" : "") +
+    "/login.html"
                         }
 
                     });
