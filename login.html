@@ -398,6 +398,29 @@ document.querySelectorAll(".password-toggle").forEach(button => {
                     throw error;
                 }
 
+                // VERIFY CUSTOMER WITH NOIRE BACKEND
+
+const accessToken = data.session?.access_token;
+
+if (!accessToken) {
+    throw new Error("Login session not found. Please login again.");
+}
+
+const authResponse = await fetch("http://localhost:3000/auth-check", {
+    method: "GET",
+    headers: {
+        "Authorization": `Bearer ${accessToken}`
+    }
+});
+
+const authResult = await authResponse.json();
+
+if (!authResponse.ok || !authResult.success) {
+    throw new Error(authResult.message || "Backend authentication failed.");
+}
+
+console.log("NOIRÉ customer verified:", authResult.customer);
+
                 message.style.color = "#16803c";
                 message.textContent = "Login successful! Redirecting...";
 
@@ -437,7 +460,7 @@ document.querySelectorAll(".password-toggle").forEach(button => {
                         email,
                         {
                            redirectTo:
-    new URL("login.html", window.location.href).href
+    new URL("reset-password.html", window.location.href).href
                         }
                     );
 

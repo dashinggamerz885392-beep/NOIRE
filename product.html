@@ -1841,6 +1841,7 @@ function extractCentralProduct(id) {
 
                 
 
+
 function showGalleryImage(index) {
     if (!galleryImages.length) return;
 
@@ -1854,7 +1855,7 @@ function showGalleryImage(index) {
     const thumbnails =
         thumbnailList.querySelectorAll(".thumbnail");
 
-    // Selected thumbnail update karo
+    // Selected thumbnail update
     thumbnails.forEach(function (item, itemIndex) {
         const active = itemIndex === nextIndex;
 
@@ -1873,7 +1874,7 @@ function showGalleryImage(index) {
         }
     });
 
-    // Second image par hi details overlay dikhao
+    // Details overlay: second image only
     const detailsOverlay = document.getElementById(
         "image-details-overlay"
     );
@@ -1884,11 +1885,10 @@ function showGalleryImage(index) {
         detailsOverlay.classList.remove("active");
 
         if (showDetails) {
-            // Har baar second image par aane par animation restart karo
+            // Restart overlay animation
             void detailsOverlay.offsetWidth;
-            detailsOverlay.classList.add("active");
 
-            // Product name update karo
+            // Product name
             const overlayName = document.getElementById(
                 "overlay-product-name"
             );
@@ -1898,22 +1898,17 @@ function showGalleryImage(index) {
                     product.name || "NOIRÉ ESSENTIALS";
             }
 
-            // Current selected size ke hisaab se price update karo
+            // Product price (only if price element exists)
             const overlayPrice = document.getElementById(
                 "overlay-product-price"
             );
 
             if (overlayPrice) {
-                const price =
-                    typeof getSelectedUnitPrice === "function"
-                        ? getSelectedUnitPrice()
-                        : Number(product.price) || 0;
-
                 overlayPrice.textContent =
-                    "₹" + price.toLocaleString("en-IN");
+                    "₹" + getSelectedUnitPrice().toLocaleString("en-IN");
             }
 
-            // Fit update karo
+            // Fit
             const overlayFit = document.getElementById(
                 "overlay-product-fit"
             );
@@ -1923,7 +1918,7 @@ function showGalleryImage(index) {
                     product.fit || "Regular Fit";
             }
 
-            // Material update karo
+            // Material
             const overlayMaterial = document.getElementById(
                 "overlay-product-material"
             );
@@ -1933,9 +1928,9 @@ function showGalleryImage(index) {
                     product.material ||
                     product.fabric ||
                     "Premium Fabric";
+            }
 
-                    
-            // Neck Type update karo
+            // Neck Type
             const overlayNeck = document.getElementById(
                 "overlay-product-neck"
             );
@@ -1945,7 +1940,7 @@ function showGalleryImage(index) {
                     product.neckType || "Not specified";
             }
 
-            // Pattern update karo
+            // Pattern
             const overlayPattern = document.getElementById(
                 "overlay-product-pattern"
             );
@@ -1955,7 +1950,7 @@ function showGalleryImage(index) {
                     product.pattern || "Not specified";
             }
 
-            // Sleeve update karo
+            // Sleeve
             const overlaySleeve = document.getElementById(
                 "overlay-product-sleeve"
             );
@@ -1965,11 +1960,12 @@ function showGalleryImage(index) {
                     product.sleeve || "Not specified";
             }
 
-            }
+            // Show overlay after updating details
+            detailsOverlay.classList.add("active");
         }
     }
 
-    // Same image dobara select ho to image animation skip karo
+    // Skip image animation if same image is selected
     if (
         nextIndex === previousIndex &&
         mainImage.getAttribute("src") === src
@@ -1977,7 +1973,7 @@ function showGalleryImage(index) {
         return;
     }
 
-    // Next/previous navigation ki direction
+    // Determine animation direction
     let direction = 1;
 
     if (galleryImages.length > 1) {
@@ -1998,7 +1994,7 @@ function showGalleryImage(index) {
 
     currentImageIndex = nextIndex;
 
-    // Image ko animation ke starting point par rakho
+    // Starting animation position
     mainImage.style.transition = "none";
     mainImage.style.opacity = "0";
 
@@ -2014,7 +2010,6 @@ function showGalleryImage(index) {
         " image " +
         (currentImageIndex + 1);
 
-    // Browser ko starting position render karne do
     void mainImage.offsetWidth;
 
     mainImage.style.transition =
@@ -2028,12 +2023,10 @@ function showGalleryImage(index) {
 
 
 function updateGalleryControls() {
-    const prevButton = document.getElementById("prev-image");
-    const nextButton = document.getElementById("next-image");
+    const prevButton = document.getElementById("gallery-prev");
+    const nextButton = document.getElementById("gallery-next");
 
-    const totalImages = product && Array.isArray(product.images)
-        ? product.images.length
-        : 0;
+    const totalImages = galleryImages.length;
 
     if (prevButton) {
         prevButton.disabled = totalImages <= 1;
@@ -2479,26 +2472,55 @@ function getCardPrice(card) {
                 addProductToBag();
             });
 
-            /* BUY NOW PLACEHOLDER */
+          
+/* =====================================
+   NOIRÉ — BUY NOW / DIRECT CHECKOUT
+===================================== */
 
-            buyButton.addEventListener("click", function () {
-                if (!selectedSize) {
-                    showMessage(
-                        "Please select a size before continuing.",
-                        true
-                    );
+buyButton.addEventListener("click", function () {
 
-                    return;
-                }
+    if (!selectedSize) {
+        showMessage(
+            "Please select a size before continuing.",
+            true
+        );
+        return;
+    }
 
-                showMessage(
-                    "Your selection is ready: " +
-                    product.name +
-                    ", Size " + selectedSize +
-                    ", Quantity " + quantity +
-                    ". Online checkout is coming soon."
-                );
-            });
+    if (!product) {
+        showMessage("Product information is unavailable.", true);
+        return;
+    }
+
+    const checkoutItem = {
+        id: String(product.id),
+        name: product.name,
+        title: product.name,
+        price: getSelectedUnitPrice(),
+        image: product.image,
+        size: selectedSize,
+        quantity: quantity
+    };
+
+    try {
+        localStorage.setItem(
+            "noireCheckoutItem",
+            JSON.stringify(checkoutItem)
+        );
+
+        window.location.href = "checkout.html";
+
+    } catch (error) {
+        console.error("NOIRÉ checkout error:", error);
+
+        showMessage(
+            "Unable to continue to checkout. Please try again.",
+            true
+        );
+    }
+
+});
+
 
             /* =====================================
    NOIRÉ — SUPABASE PRODUCT REVIEWS

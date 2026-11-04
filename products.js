@@ -50,7 +50,7 @@ images: [
     "images/tshirts2-back.jpg"
 ],
 
-        tags: "white tshirt tee women regular casual",
+        tags: "white tshirt tee men regular casual",
 
         sizes: ["S", "M", "L", "XXL"],
 

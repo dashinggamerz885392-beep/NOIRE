@@ -1,0 +1,568 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | NOIRÉ</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #f7f6f2;
+            color: #171717;
+            font-family: 'Inter', sans-serif;
+        }
+
+        header {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid #deddd8;
+        }
+
+        header a {
+            color: #171717;
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            letter-spacing: 5px;
+        }
+
+        .checkout-container {
+            max-width: 1100px;
+            margin: 55px auto;
+            padding: 0 20px;
+        }
+
+        .checkout-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            font-weight: 500;
+            margin-bottom: 35px;
+        }
+
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 45px;
+        }
+
+        .checkout-section {
+            background: white;
+            padding: 28px;
+            border: 1px solid #deddd8;
+            margin-bottom: 22px;
+        }
+
+        .checkout-section h2 {
+            font-size: 18px;
+            margin-bottom: 23px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #deddd8;
+            background: #fff;
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #171717;
+        }
+
+        .form-group textarea {
+            height: 95px;
+            resize: vertical;
+        }
+
+        .order-product {
+            display: flex;
+            gap: 15px;
+            padding-bottom: 18px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-product img {
+            width: 85px;
+            height: 100px;
+            object-fit: cover;
+            background: #eee;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-info h3 {
+            font-size: 13px;
+            margin-bottom: 9px;
+        }
+
+        .product-info p {
+            font-size: 12px;
+            color: #777;
+            margin-bottom: 7px;
+        }
+
+        .product-price {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+
+        .total-row {
+            border-top: 1px solid #deddd8;
+            padding-top: 18px;
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .payment-option {
+            padding: 15px;
+            border: 1px solid #171717;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .place-order {
+            width: 100%;
+            padding: 17px;
+            background: #171717;
+            color: white;
+            border: none;
+            margin-top: 22px;
+            cursor: pointer;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .place-order:hover {
+            background: #333;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 35px 10px;
+            color: #777;
+            font-size: 13px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #171717;
+            font-size: 12px;
+        }
+
+        @media(max-width: 750px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .checkout-title {
+                font-size: 30px;
+            }
+
+            .checkout-container {
+                margin: 35px auto;
+            }
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html">NOIRÉ</a>
+</header>
+
+<main class="checkout-container">
+
+    <h1 class="checkout-title">Checkout</h1>
+
+    <div class="checkout-grid">
+
+        <div>
+            <section class="checkout-section">
+                <h2>Delivery Information</h2>
+
+                <form id="checkout-form">
+
+                    <div class="form-group">
+                        <label for="customer-name">Full Name</label>
+                        <input type="text" id="customer-name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customer-phone">Mobile Number</label>
+                        <input type="tel" id="customer-phone"
+                               pattern="[6-9][0-9]{9}"
+                               maxlength="10" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customer-email">Email Address</label>
+                        <input type="email" id="customer-email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customer-address">Full Address</label>
+                        <textarea id="customer-address" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customer-city">City</label>
+                        <input type="text" id="customer-city" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customer-state">State</label>
+                        <input type="text" id="customer-state" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customer-pincode">PIN Code</label>
+                        <input type="text" id="customer-pincode"
+                               pattern="[0-9]{6}"
+                               maxlength="6" required>
+                    </div>
+
+                </form>
+            </section>
+
+            <section class="checkout-section">
+                <h2>Payment Method</h2>
+
+                <div class="payment-option">
+                    <input type="radio" checked disabled>
+                    <span>Cash on Delivery (COD)</span>
+                </div>
+            </section>
+        </div>
+
+        <div>
+            <section class="checkout-section">
+
+                <h2>Order Summary</h2>
+
+                <div id="checkout-products">
+                    <p class="empty-message">Loading products...</p>
+                </div>
+
+                <div class="price-row">
+                    <span>Subtotal</span>
+                    <span id="checkout-subtotal">₹0</span>
+                </div>
+
+                <div class="price-row">
+                    <span>Shipping</span>
+                    <span>Calculated later</span>
+                </div>
+
+                <div class="price-row total-row">
+                    <span>Total</span>
+                    <span id="checkout-total">₹0</span>
+                </div>
+
+                <button type="submit" form="checkout-form"
+                        class="place-order">
+                    PLACE ORDER
+                </button>
+
+                <a href="index.html" class="back-link">
+                    ← Continue Shopping
+                </a>
+
+            </section>
+        </div>
+
+    </div>
+
+</main>
+
+<script>
+document.addEventListener("DOMContentLoaded", async function () {
+
+    // SUPABASE CONFIG — existing login.html wali values use karo
+    const SUPABASE_URL = "https://ygpmnhhqhcoyivrxwngw.supabase.co";
+    const SUPABASE_KEY =   "sb_publishable_-hJcIeoHdieoniCwu4AOAg_TqPg993e";
+
+    const supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+  const API_URL = "http://localhost:3000/create-order";
+
+const bagKey = "noireBagItems";
+const checkoutKey = "noireCheckoutItem";
+
+let directCheckoutItem = null;
+let isDirectCheckout = false;
+let bagItems = [];
+
+// 1. First check Buy Now product
+try {
+    directCheckoutItem = JSON.parse(
+        localStorage.getItem(checkoutKey) || "null"
+    );
+
+    if (
+        directCheckoutItem &&
+        typeof directCheckoutItem === "object" &&
+        !Array.isArray(directCheckoutItem)
+    ) {
+        isDirectCheckout = true;
+    } else {
+        directCheckoutItem = null;
+    }
+
+} catch (error) {
+    directCheckoutItem = null;
+}
+
+// 2. Buy Now product gets priority
+if (isDirectCheckout) {
+
+    bagItems = [directCheckoutItem];
+
+} else {
+
+    // Otherwise load Add to Bag products
+    try {
+        bagItems = JSON.parse(
+            localStorage.getItem(bagKey) || "[]"
+        );
+
+        if (!Array.isArray(bagItems)) {
+            bagItems = [];
+        }
+
+    } catch (error) {
+        bagItems = [];
+    }
+}
+
+    const form = document.getElementById("checkout-form");
+    const productsContainer = document.getElementById("checkout-products");
+    const subtotalElement = document.getElementById("checkout-subtotal");
+    const totalElement = document.getElementById("checkout-total");
+    const orderButton = document.querySelector(".place-order");
+
+    function formatPrice(price) {
+        return "₹" + Number(price || 0).toLocaleString("en-IN");
+    }
+
+    function renderCheckout() {
+
+        if (bagItems.length === 0) {
+            productsContainer.innerHTML =
+                '<p class="empty-message">Your bag is empty. Please add products first.</p>';
+
+            orderButton.disabled = true;
+            return;
+        }
+
+        productsContainer.innerHTML = bagItems.map(function (item) {
+
+            const quantity = Math.max(1, Number(item.quantity) || 1);
+
+            return `
+                <article class="order-product">
+
+                    <img src="${String(item.image || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;")}"
+                         alt="Product">
+
+                    <div class="product-info">
+
+                        <h3>${String(item.name || item.title || "NOIRÉ Product").replace(/[&<>"']/g, "")}</h3>
+
+                        <p>Size: ${String(item.size || "M")}</p>
+
+                        <p>Quantity: ${quantity}</p>
+
+                        <div class="product-price">
+                            ${formatPrice(item.price)}
+                        </div>
+
+                    </div>
+
+                </article>
+            `;
+
+        }).join("");
+
+        const subtotal = bagItems.reduce(function (total, item) {
+            return total +
+                (Number(item.price) || 0) *
+                Math.max(1, Number(item.quantity) || 1);
+        }, 0);
+
+        subtotalElement.textContent = formatPrice(subtotal);
+        totalElement.textContent = formatPrice(subtotal);
+    }
+
+
+    // CHECKOUT SUBMISSION
+    form.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        if (bagItems.length === 0) {
+            alert("Your bag is empty!");
+            return;
+        }
+
+        orderButton.disabled = true;
+        orderButton.textContent = "PROCESSING...";
+
+        try {
+
+            // 1. CHECK CUSTOMER LOGIN
+            const { data: sessionData, error: sessionError } =
+                await supabaseClient.auth.getSession();
+
+            if (sessionError) {
+                throw sessionError;
+            }
+
+            const session = sessionData.session;
+
+            if (!session) {
+                alert("Please login before placing your order.");
+                window.location.href = "login.html";
+                return;
+            }
+
+            // 2. PREPARE ORDER ITEMS
+            const orderItems = bagItems.map(function (item) {
+
+                return {
+                    product_id: Number(item.id || item.product_id),
+                    quantity: Math.max(1, Number(item.quantity) || 1),
+                    size: item.size || "M"
+                };
+
+            });
+
+            if (orderItems.some(item =>
+                !Number.isInteger(item.product_id) || item.product_id <= 0
+            )) {
+                throw new Error("A product has an invalid ID. Please check your bag.");
+            }
+
+            // 3. SEND ORDER TO BACKEND
+            const response = await fetch(API_URL, {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + session.access_token
+                },
+
+                body: JSON.stringify({
+
+                    customer_name:
+                        document.getElementById("customer-name").value.trim(),
+
+                    phone:
+                        document.getElementById("customer-phone").value.trim(),
+
+                    address:
+                        document.getElementById("customer-address").value.trim(),
+
+                    city:
+                        document.getElementById("customer-city").value.trim(),
+
+                    state:
+                        document.getElementById("customer-state").value.trim(),
+
+                    pincode:
+                        document.getElementById("customer-pincode").value.trim(),
+
+                    payment_method: "COD",
+
+                    items: orderItems
+
+                })
+
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.message || "Order placement failed.");
+            }
+
+            // 4. ORDER SUCCESS
+            localStorage.removeItem(bagKey);
+
+            bagItems = [];
+
+            alert(
+                "Order placed successfully!\n\n" +
+                "Order Number: " + result.order.order_number +
+                "\nTotal: " + formatPrice(result.order.total_amount)
+            );
+
+            window.location.href = "index.html";
+
+        } catch (error) {
+
+            console.error("Checkout Error:", error);
+
+            alert(error.message || "Something went wrong. Please try again.");
+
+            orderButton.disabled = false;
+            orderButton.textContent = "PLACE ORDER";
+
+        }
+
+    });
+
+    renderCheckout();
+
+});
+</script>
+
+</body>
+</html>
