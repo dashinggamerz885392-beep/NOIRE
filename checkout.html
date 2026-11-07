@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout | NOIRÉ</title>
+    <title>Checkout | ORVAN</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
@@ -211,7 +211,7 @@
 <body>
 
 <header>
-    <a href="index.html">NOIRÉ</a>
+    <a href="index.html">ORVANS</a>
 </header>
 
 <main class="checkout-container">
@@ -486,6 +486,10 @@ if (isDirectCheckout) {
             if (orderItems.some(item =>
                 !Number.isInteger(item.product_id) || item.product_id <= 0
             )) {
+
+                console.log("CHECKOUT BAG ITEMS:", bagItems);
+console.log("ORDER ITEMS SENT:", orderItems);
+
                 throw new Error("A product has an invalid ID. Please check your bag.");
             }
 
@@ -533,10 +537,21 @@ if (isDirectCheckout) {
                 throw new Error(result.message || "Order placement failed.");
             }
 
-            // 4. ORDER SUCCESS
-            localStorage.removeItem(bagKey);
+           // 4. ORDER SUCCESS
 
-            bagItems = [];
+if (isDirectCheckout) {
+
+    // Clear only the Buy Now selection
+    localStorage.removeItem(checkoutKey);
+
+} else {
+
+    // Clear bag only after successful bag order
+    localStorage.removeItem(bagKey);
+
+}
+
+bagItems = [];
 
             alert(
                 "Order placed successfully!\n\n" +
